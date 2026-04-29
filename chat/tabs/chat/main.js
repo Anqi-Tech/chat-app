@@ -21,6 +21,7 @@ export default async () => ({
 
         const chatChannel = computed(() => [props.chatId]);
 
+        // Messages
         const { objects: messageObjects, isFirstPoll: messagesLoading } =
             useGraffitiDiscover(
                 chatChannel,
@@ -74,6 +75,81 @@ export default async () => ({
             await graffiti.delete(message, session.value);
         }
 
+        // Invite
+        // To get the chat title for the invite we discover the chat object
+        // from the current user's own actor ID channel.
+        const { objects: myChatObjects } = useGraffitiDiscover(
+            () => (session.value ? [session.value.actor] : []),
+            {
+                properties: {
+                    value: {
+                        required: [
+                            "activity",
+                            "type",
+                            "title",
+                            "channel",
+                            "published",
+                        ],
+                        properties: {
+                            activity: { type: "string", const: "Create" },
+                            type: { type: "string", const: "Chat" },
+                            title: { type: "string" },
+                            channel: { type: "string" },
+                            published: { type: "number" },
+                        },
+                    },
+                },
+            },
+            session,
+            true,
+        );
+
+        const chatTitle = computed(() => {
+            const match = myChatObjects.value.find(
+                (c) => c.value.channel === props.chatId,
+            );
+            return match ? match.value.title : "this chat";
+        });
+
+        const inviteeActor = ref("");
+        const isInviting = ref(false);
+        const showInviteForm = ref(false);
+
+        const inviteError = ref("");
+
+        async function sendInvite() {
+            if (!inviteeActor.value.trim()) return;
+            isInviting.value = true;
+            inviteError.value = "";
+            try {
+                // Resolve the handle to a full actor ID (did:plc:...)
+                const actorId = await graffiti.handleToActor(
+                    inviteeActor.value.trim(),
+                );
+                await graffiti.post(
+                    {
+                        value: {
+                            activity: "Invite",
+                            type: "Chat",
+                            title: chatTitle.value,
+                            channel: props.chatId,
+                            published: Date.now(),
+                        },
+                        channels: [actorId],
+                        allowed: [actorId],
+                    },
+                    session.value,
+                );
+                inviteeActor.value = "";
+                showInviteForm.value = false;
+            } catch (e) {
+                inviteError.value =
+                    "Could not find that user. Double-check the handle and try again.";
+            } finally {
+                isInviting.value = false;
+            }
+        }
+
         return {
             session,
             sortedMessages,
@@ -82,6 +158,11 @@ export default async () => ({
             isSendingMessage,
             sendMessage,
             deleteMessage,
+            inviteeActor,
+            isInviting,
+            showInviteForm,
+            sendInvite,
+            inviteError,
         };
     },
 });

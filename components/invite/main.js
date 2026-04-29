@@ -1,10 +1,10 @@
 export default async () => ({
-    props: ["msg"],
-    emits: ["delete"],
+    props: ["invite"],
+    emits: ["accept", "decline"],
     template: await fetch(new URL("./index.html", import.meta.url)).then((r) =>
         r.text(),
     ),
-    setup(props) {
+    setup() {
         return {};
     },
 });

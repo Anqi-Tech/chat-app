@@ -1,5 +1,21 @@
 <link rel="stylesheet" href="/chat/tabs/chat/chat.css" />
 <div>
+    <button @click="showInviteForm = !showInviteForm">
+        {{ showInviteForm ? "Cancel" : "Invite Someone" }}
+    </button>
+    <form v-if="showInviteForm" @submit.prevent="sendInvite">
+        <label>Person to invite: </label>
+        <input
+            type="text"
+            v-model="inviteeActor"
+            placeholder="handle.graffiti.actor"
+        />
+        <button type="submit" :disabled="!inviteeActor.trim() || isInviting">
+            {{ isInviting ? "Sending..." : "Send Invite" }}
+        </button>
+    </form>
+    <p v-if="inviteError">{{ inviteError }}</p>
+
     <p v-if="messagesLoading"><em>Loading messages...</em></p>
     <section v-else-if="sortedMessages.length > 0" class="messages-container">
         <chat-message
@@ -9,7 +25,7 @@
             @delete="deleteMessage"
         />
     </section>
-    <p v-else><em>No messages yet. Say something!</em></p>
+    <p v-else>No messages yet. Say something!</p>
     <form @submit.prevent="sendMessage">
         <input
             type="text"

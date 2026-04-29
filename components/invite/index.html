@@ -1,0 +1,6 @@
+<li>
+    {{ invite.value.title }} — invited by
+    <graffiti-actor-to-handle :actor="invite.actor" />
+    <button @click="$emit('accept', invite)">Accept</button>
+    <button @click="$emit('decline', invite)">Decline</button>
+</li>

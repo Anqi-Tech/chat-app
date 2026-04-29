@@ -5,6 +5,20 @@
 
 <template v-else>
     <button @click="$graffiti.logout($graffitiSession.value)">Log Out</button>
+
+    <section v-if="filteredInvites.length > 0">
+        <h2>Pending Invites</h2>
+        <ul>
+            <invite-item
+                v-for="invite in filteredInvites"
+                :key="invite.url"
+                :invite="invite"
+                @accept="acceptInvite"
+                @decline="declineInvite"
+            />
+        </ul>
+    </section>
+
     <h2>My Chats</h2>
     <form @submit.prevent="createChat">
         <input
@@ -19,7 +33,9 @@
             {{ isCreatingChat ? "Creating..." : "Create Chat" }}
         </button>
     </form>
-    <p v-if="sortedChats.length === 0">No chats yet. Create one above!</p>
+    <p v-if="sortedChats.length === 0">
+        <em>No chats yet. Create one above!</em>
+    </p>
     <ul v-else>
         <li v-for="chat in sortedChats" :key="chat.url">
             <button @click="openChat(chat)">{{ chat.value.title }}</button>

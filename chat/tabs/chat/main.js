@@ -7,6 +7,11 @@ import {
 
 export default async () => ({
     props: ["chatId"],
+    components: {
+        ChatMessage: await import(
+            new URL("../../../components/chat-message/main.js", import.meta.url)
+        ).then((m) => m.default()),
+    },
     template: await fetch(new URL("./index.html", import.meta.url)).then((r) =>
         r.text(),
     ),

@@ -1,16 +1,12 @@
 <div>
     <p v-if="messagesLoading"><em>Loading messages...</em></p>
     <ul v-else-if="sortedMessages.length > 0">
-        <li v-for="msg in sortedMessages" :key="msg.url">
-            <strong><graffiti-actor-to-handle :actor="msg.actor" /></strong>: {{
-            msg.value.content }}
-            <button
-                v-if="msg.actor === $graffitiSession.value?.actor"
-                @click="deleteMessage(msg)"
-            >
-                Delete
-            </button>
-        </li>
+        <chat-message
+            v-for="msg in sortedMessages"
+            :key="msg.url"
+            :msg="msg"
+            @delete="deleteMessage"
+        />
     </ul>
     <p v-else><em>No messages yet. Say something!</em></p>
     <form @submit.prevent="sendMessage">

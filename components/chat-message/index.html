@@ -1,0 +1,9 @@
+<li>
+    <graffiti-actor-to-handle :actor="msg.actor" />: {{ msg.value.content }}
+    <button
+        v-if="msg.actor === $graffitiSession.value?.actor"
+        @click="$emit('delete', msg)"
+    >
+        Delete
+    </button>
+</li>

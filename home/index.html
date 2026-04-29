@@ -1,0 +1,28 @@
+<div v-if="!$graffitiSession.value">
+    <p>Please log in to continue.</p>
+    <button @click="$graffiti.login()">Log In</button>
+</div>
+
+<template v-else>
+    <button @click="$graffiti.logout($graffitiSession.value)">Log Out</button>
+    <h2>My Chats</h2>
+    <form @submit.prevent="createChat">
+        <input
+            type="text"
+            v-model="newChatTitle"
+            placeholder="New chat name..."
+        />
+        <button
+            type="submit"
+            :disabled="!newChatTitle.trim() || isCreatingChat"
+        >
+            {{ isCreatingChat ? "Creating..." : "Create Chat" }}
+        </button>
+    </form>
+    <p v-if="sortedChats.length === 0">No chats yet. Create one above!</p>
+    <ul v-else>
+        <li v-for="chat in sortedChats" :key="chat.url">
+            <button @click="openChat(chat)">{{ chat.value.title }}</button>
+        </li>
+    </ul>
+</template>

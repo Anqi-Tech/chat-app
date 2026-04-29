@@ -1,0 +1,64 @@
+<div>
+    <button @click="showTaskForm = !showTaskForm">
+        {{ showTaskForm ? "Cancel" : "New Task" }}
+    </button>
+    <form v-if="showTaskForm" @submit.prevent="createTask">
+        <div>
+            <label>Title: </label>
+            <input
+                type="text"
+                v-model="newTask.title"
+                placeholder="Task title"
+                required
+            />
+        </div>
+        <div>
+            <label>Deadline: </label>
+            <input type="date" v-model="newTask.deadline" required />
+        </div>
+        <div>
+            <label>Assignees (comma-separated handles): </label>
+            <input
+                type="text"
+                v-model="newTask.assignees"
+                placeholder="e.g. alice, bob"
+            />
+        </div>
+        <div>
+            <label>Description (optional): </label>
+            <textarea
+                v-model="newTask.description"
+                placeholder="What needs to be done?"
+            ></textarea>
+        </div>
+        <button
+            type="submit"
+            :disabled="!newTask.title.trim() || !newTask.deadline || isCreatingTask"
+        >
+            {{ createTaskLabel }}
+        </button>
+    </form>
+    <p v-if="tasksLoading">Loading tasks...</p>
+    <p v-else-if="sortedTasks.length === 0">No tasks yet.</p>
+    <section v-else class="task-container">
+        <article v-for="task in sortedTasks" :key="task.url" class="task-card">
+            <h4>{{ task.value.title }}</h4>
+            <p>Due: {{ task.value.deadline }}</p>
+            <p>Assignees: {{ joinAssignees(task.value.assignees) }}</p>
+            <div class="task-status">
+                <p>Status:</p>
+                <select
+                    v-if="task.actor === $graffitiSession.value?.actor"
+                    :value="task.value.status"
+                    @change="updateTaskStatus(task, $event.target.value)"
+                >
+                    <option>Not Started</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                </select>
+                <p v-else>{{ task.value.status }}</p>
+            </div>
+            <p>Description: {{ getDescription(task.value.description) }}</p>
+        </article>
+    </section>
+</div>

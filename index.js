@@ -15,6 +15,18 @@ const router = createRouter({
             path: "/chat/:chatId",
             component: loadComponent("chat"),
             props: true,
+            children: [
+                {
+                    path: "",
+                    redirect: (to) => `/chat/${to.params.chatId}/chat-tab`,
+                },
+                {
+                    path: "chat-tab",
+                    component: loadComponent("chat/tabs/chat"),
+                },
+                { path: "board", component: loadComponent("chat/tabs/board") },
+                { path: "tasks", component: loadComponent("chat/tabs/tasks") },
+            ],
         },
     ],
 });

@@ -1,0 +1,26 @@
+<div>
+    <p v-if="messagesLoading"><em>Loading messages...</em></p>
+    <ul v-else-if="sortedMessages.length > 0">
+        <li v-for="msg in sortedMessages" :key="msg.url">
+            <strong><graffiti-actor-to-handle :actor="msg.actor" /></strong>: {{
+            msg.value.content }}
+            <button
+                v-if="msg.actor === $graffitiSession.value?.actor"
+                @click="deleteMessage(msg)"
+            >
+                Delete
+            </button>
+        </li>
+    </ul>
+    <p v-else><em>No messages yet. Say something!</em></p>
+    <form @submit.prevent="sendMessage">
+        <input
+            type="text"
+            v-model="myMessage"
+            placeholder="Type a message..."
+        />
+        <button type="submit" :disabled="!myMessage.trim() || isSendingMessage">
+            {{ isSendingMessage ? "Sending..." : "Send" }}
+        </button>
+    </form>
+</div>

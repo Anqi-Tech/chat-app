@@ -1,13 +1,14 @@
+<link rel="stylesheet" href="/chat/tabs/chat/chat.css" />
 <div>
     <p v-if="messagesLoading"><em>Loading messages...</em></p>
-    <ul v-else-if="sortedMessages.length > 0">
+    <section v-else-if="sortedMessages.length > 0" class="messages-container">
         <chat-message
             v-for="msg in sortedMessages"
             :key="msg.url"
             :msg="msg"
             @delete="deleteMessage"
         />
-    </ul>
+    </section>
     <p v-else><em>No messages yet. Say something!</em></p>
     <form @submit.prevent="sendMessage">
         <input

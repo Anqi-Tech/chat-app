@@ -1,9 +1,12 @@
-<li>
-    <graffiti-actor-to-handle :actor="msg.actor" />: {{ msg.value.content }}
+<link rel="stylesheet" href="/components/chat-message/message.css" />
+
+<article class="message">
+    <p class="message-user"><graffiti-actor-to-handle :actor="msg.actor" /></p>
+    <p class="message-content">{{ msg.value.content }}</p>
     <button
         v-if="msg.actor === $graffitiSession.value?.actor"
         @click="$emit('delete', msg)"
     >
         Delete
     </button>
-</li>
+</article>

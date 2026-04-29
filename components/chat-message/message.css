@@ -1,0 +1,20 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+p {
+    all: unset;
+}
+
+.message-user {
+    font-weight: bold;
+}
+
+.message-content {
+    outline: solid black 2px;
+    padding: 0.5rem 1rem;
+    border-radius: 0 15px 15px 15px;
+}

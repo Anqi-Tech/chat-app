@@ -3,9 +3,7 @@
     <button @click="goBack">← Back to Chats</button>
 
     <nav>
-        <router-link :to="`/chat/${$route.params.chatId}/chat-tab`"
-            >Chat</router-link
-        >
+        <router-link :to="`/chat/${$route.params.chatId}`">Chat</router-link>
         <router-link :to="`/chat/${$route.params.chatId}/board`"
             >Board</router-link
         >

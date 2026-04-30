@@ -20,3 +20,7 @@
 .task-status {
     display: flex;
 }
+
+h1 {
+    color: aqua;
+}

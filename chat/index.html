@@ -1,4 +1,6 @@
-<div>
+<link rel="stylesheet" href="/chat/chat.css" />
+
+<main>
     <button @click="goBack">← Back to Chats</button>
 
     <nav>
@@ -12,4 +14,4 @@
     </nav>
 
     <router-view :chatId="$route.params.chatId" />
-</div>
+</main>

@@ -1,9 +1,11 @@
 <div v-if="!$graffitiSession.value">
+    <h1>Group Project Chat</h1>
     <p>Please log in to continue.</p>
     <button @click="$graffiti.login()">Log In</button>
 </div>
 
 <template v-else>
+    <h1>Group Project Chat</h1>
     <button @click="$graffiti.logout($graffitiSession.value)">Log Out</button>
 
     <section v-if="filteredInvites.length > 0">

@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="style.css" />
 
 <div>
+    <button @click="$router.push('/')">← Back to Chats</button>
     <button @click="showInviteForm = !showInviteForm">
         {{ showInviteForm ? "Cancel" : "Invite Someone" }}
     </button>

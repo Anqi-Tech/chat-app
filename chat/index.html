@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="style.css" />
 
-<main>
-    <button @click="goBack">← Back to Chats</button>
-
+<main class="chat-main">
     <nav>
-        <router-link :to="`/chat/${$route.params.chatId}`">Chat</router-link>
+        <router-link :to="`/chat/${$route.params.chatId}`" exact
+            >Chat</router-link
+        >
         <router-link :to="`/chat/${$route.params.chatId}/board`"
             >Board</router-link
         >

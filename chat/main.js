@@ -7,11 +7,5 @@ export default async () => ({
     ),
     setup(props) {
         const router = useRouter();
-
-        function goBack() {
-            router.push("/");
-        }
-
-        return { goBack };
     },
 });

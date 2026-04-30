@@ -1,4 +1,28 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 /* CHAT */
+.chat-main {
+    height: 100vh;
+}
+
+.chat-main nav * {
+    all: unset;
+    font-size: 3rem;
+    background-color: #fb9a9a;
+    border-radius: 20px 20px 0 0;
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+.chat-main nav a.router-link-exact-active {
+    background-color: #efcdcd;
+}
+
+/* Chat Tab */
+
 /* Task Tab */
 .task-container {
     display: grid;

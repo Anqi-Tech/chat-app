@@ -116,6 +116,7 @@ export default async () => ({
         const showInviteForm = ref(false);
 
         const inviteError = ref("");
+        const inviteSuccess = ref(false);
 
         async function sendInvite() {
             if (!inviteeActor.value.trim()) return;
@@ -141,13 +142,21 @@ export default async () => ({
                     session.value,
                 );
                 inviteeActor.value = "";
-                showInviteForm.value = false;
+                inviteSuccess.value = true;
+                inviteError.value = "";
             } catch (e) {
+                inviteSuccess.value = false;
                 inviteError.value =
                     "Could not find that user. Double-check the handle and try again.";
             } finally {
                 isInviting.value = false;
             }
+        }
+
+        function cancelInvite() {
+            showInviteForm.value = false;
+            inviteError.value = "";
+            inviteSuccess.value = false;
         }
 
         return {
@@ -163,6 +172,8 @@ export default async () => ({
             showInviteForm,
             sendInvite,
             inviteError,
+            inviteSuccess,
+            cancelInvite,
             chatTitle,
         };
     },

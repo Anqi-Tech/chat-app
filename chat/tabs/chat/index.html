@@ -1,23 +1,6 @@
 <link rel="stylesheet" href="style.css" />
 
 <section class="chat-tab">
-    <!-- <button @click="$router.push('/')">← Back to Chats</button>
-    <button @click="showInviteForm = !showInviteForm">
-        {{ showInviteForm ? "Cancel" : "Invite Someone" }}
-    </button>
-    <form v-if="showInviteForm" @submit.prevent="sendInvite">
-        <label>Person to invite: </label>
-        <input
-            type="text"
-            v-model="inviteeActor"
-            placeholder="handle.graffiti.actor"
-        />
-        <button type="submit" :disabled="!inviteeActor.trim() || isInviting">
-            {{ isInviting ? "Sending..." : "Send Invite" }}
-        </button>
-    </form>
-    <p v-if="inviteError">{{ inviteError }}</p> -->
-
     <section class="chat-tab-main">
         <div class="chat-tab-head">
             <h1>{{chatTitle}}</h1>
@@ -25,7 +8,34 @@
         </div>
         <div class="divider"></div>
 
-        <section>
+        <section class="invite-section">
+            <button
+                v-if="!showInviteForm"
+                @click="showInviteForm = true; inviteSuccess = false"
+            >
+                Invite Someone
+            </button>
+            <form v-if="showInviteForm" @submit.prevent="sendInvite">
+                <label>Person to invite: </label>
+                <input
+                    type="text"
+                    v-model="inviteeActor"
+                    placeholder="handle.graffiti.actor"
+                />
+                <button
+                    type="submit"
+                    :disabled="!inviteeActor.trim() || isInviting"
+                >
+                    {{ isInviting ? "Sending..." : "Send Invite" }}
+                </button>
+                <button @click="cancelInvite">Cancel</button>
+                <p v-if="inviteError">{{ inviteError }}</p>
+                <p v-if="inviteSuccess">Invitation sent!</p>
+            </form>
+        </section>
+        <div class="divider"></div>
+
+        <section class="chat-tab-messages">
             <p v-if="messagesLoading">Loading messages...</p>
             <chat-message
                 v-else-if="sortedMessages.length > 0"

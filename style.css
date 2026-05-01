@@ -78,7 +78,31 @@ body {
     margin: 1rem 0;
 }
 
-.chat-tab-main section {
+.invite-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.invite-section input {
+    all: unset;
+    font-size: 1rem;
+    background-color: #ffc9e4;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.invite-section button {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.invite-section p {
+    flex-basis: 100%;
+}
+
+.chat-tab-messages {
     flex: 1;
     overflow-y: auto;
 }

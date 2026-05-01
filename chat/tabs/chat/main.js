@@ -163,6 +163,7 @@ export default async () => ({
             showInviteForm,
             sendInvite,
             inviteError,
+            chatTitle,
         };
     },
 });

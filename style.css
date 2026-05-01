@@ -1,12 +1,24 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     padding: 0;
-    margin: 0;
     box-sizing: border-box;
+}
+
+#app {
+    height: 100%;
 }
 
 /* CHAT */
 .chat-main {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .chat-main nav * {
@@ -22,6 +34,73 @@ body {
 }
 
 /* Chat Tab */
+.chat-tab {
+    background-color: #efcdcd;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.chat-tab button {
+    border: none;
+    font-size: 1rem;
+    background-color: #ff7dbe;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.chat-tab button:enabled:hover {
+    filter: brightness(1.25);
+}
+
+.chat-tab-main {
+    background-color: #ffebeb;
+    margin: 2rem;
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-tab-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-tab-main h1 {
+    margin: 0;
+}
+
+.divider {
+    background-color: #efcdcd;
+    height: 5px;
+    margin: 1rem 0;
+}
+
+.chat-tab-main section {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-send-bar {
+    display: flex;
+    font-size: 3rem;
+    gap: 1rem;
+}
+
+.chat-send-bar input {
+    all: unset;
+    font-size: 1rem;
+    background-color: #ffc9e4;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.chat-send-bar button {
+    width: 7rem;
+}
 
 /* Task Tab */
 .task-container {
@@ -53,7 +132,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 .message-user,
@@ -66,7 +146,16 @@ body {
 }
 
 .message-content {
-    outline: solid black 2px;
-    padding: 0.5rem 1rem;
+    background-color: #fb9a9a;
+    outline: solid #fb9a9a 2px;
     border-radius: 0 15px 15px 15px;
+    padding: 0.5rem 1rem;
+}
+
+.message button {
+    visibility: hidden;
+}
+
+.message:hover button {
+    visibility: visible;
 }

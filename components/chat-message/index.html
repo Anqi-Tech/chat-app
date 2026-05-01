@@ -2,11 +2,14 @@
 
 <article class="message">
     <p class="message-user"><graffiti-actor-to-handle :actor="msg.actor" /></p>
-    <p class="message-content">{{ msg.value.content }}</p>
-    <button
-        v-if="msg.actor === $graffitiSession.value?.actor"
-        @click="$emit('delete', msg)"
-    >
-        Delete
-    </button>
+
+    <div>
+        <p class="message-content">{{ msg.value.content }}</p>
+        <button
+            v-if="msg.actor === $graffitiSession.value?.actor"
+            @click="$emit('delete', msg)"
+        >
+            Delete
+        </button>
+    </div>
 </article>

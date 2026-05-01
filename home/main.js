@@ -62,13 +62,15 @@ export default async () => ({
             if (!newChatTitle.value.trim()) return;
             isCreatingChat.value = true;
             try {
+                const newChannel = crypto.randomUUID();
+
                 await graffiti.post(
                     {
                         value: {
                             activity: "Create",
                             type: "Chat",
                             title: newChatTitle.value.trim(),
-                            channel: crypto.randomUUID(),
+                            channel: newChannel,
                             published: Date.now(),
                         },
                         channels: [session.value.actor],
@@ -76,6 +78,21 @@ export default async () => ({
                     },
                     session.value,
                 );
+
+                // announce creator as first member
+                await graffiti.post(
+                    {
+                        value: {
+                            activity: "Join",
+                            type: "Chat",
+                            channel: newChannel,
+                            published: Date.now(),
+                        },
+                        channels: [newChannel],
+                    },
+                    session.value,
+                );
+
                 newChatTitle.value = "";
             } finally {
                 isCreatingChat.value = false;
@@ -126,6 +143,7 @@ export default async () => ({
         // Accepting posts a Chat object to the user's own actor ID channel
         // so it shows up in their chat list
         async function acceptInvite(invite) {
+            // existing — adds chat to their list
             await graffiti.post(
                 {
                     value: {
@@ -137,6 +155,20 @@ export default async () => ({
                     },
                     channels: [session.value.actor],
                     allowed: [],
+                },
+                session.value,
+            );
+
+            // new — announces their presence to the chat channel
+            await graffiti.post(
+                {
+                    value: {
+                        activity: "Join",
+                        type: "Chat",
+                        channel: invite.value.channel,
+                        published: Date.now(),
+                    },
+                    channels: [invite.value.channel],
                 },
                 session.value,
             );

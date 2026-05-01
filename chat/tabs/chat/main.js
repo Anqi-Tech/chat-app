@@ -75,6 +75,28 @@ export default async () => ({
             await graffiti.delete(message, session.value);
         }
 
+        // Chat Members
+        const { objects: memberObjects } = useGraffitiDiscover(
+            chatChannel,
+            {
+                properties: {
+                    value: {
+                        required: ["activity", "type", "channel", "published"],
+                        properties: {
+                            activity: { type: "string", const: "Join" },
+                            type: { type: "string", const: "Chat" },
+                            channel: { type: "string" },
+                            published: { type: "number" },
+                        },
+                    },
+                },
+            },
+            undefined,
+            true,
+        );
+
+        const members = computed(() => memberObjects.value.map((m) => m.actor));
+
         // Invite
         // To get the chat title for the invite we discover the chat object
         // from the current user's own actor ID channel.
@@ -175,6 +197,7 @@ export default async () => ({
             inviteSuccess,
             cancelInvite,
             chatTitle,
+            members,
         };
     },
 });

@@ -128,22 +128,74 @@ export default async () => ({
             true,
         );
 
+        // Invites user has already responded to
+        const { objects: respondedInvites } = useGraffitiDiscover(
+            () => (session.value ? [session.value.actor] : []),
+            {
+                properties: {
+                    value: {
+                        required: ["activity", "type", "channel", "published"],
+                        properties: {
+                            activity: {
+                                type: "string",
+                                const: "RespondedToInvite",
+                            },
+                            type: { type: "string", const: "Chat" },
+                            channel: { type: "string" },
+                            published: { type: "number" },
+                        },
+                    },
+                },
+            },
+            session,
+            true,
+        );
+        const respondedChannels = computed(
+            () => new Set(respondedInvites.value.map((r) => r.value.channel)),
+        );
+
         // filter out invites for chats the user has already joined
         const joinedChannels = computed(
             () => new Set(myChats.value.map((c) => c.value.channel)),
         );
 
-        const filteredInvites = computed(() =>
-            pendingInvites.value.filter(
-                (invite) => !joinedChannels.value.has(invite.value.channel),
-            ),
-        );
+        const filteredInvites = computed(() => {
+            const seen = new Set();
+            return pendingInvites.value
+                .toSorted((a, b) => b.value.published - a.value.published)
+                .filter((invite) => {
+                    if (
+                        joinedChannels.value.has(invite.value.channel) ||
+                        respondedChannels.value.has(invite.value.channel) ||
+                        seen.has(invite.value.channel)
+                    ) {
+                        return false;
+                    }
+                    seen.add(invite.value.channel);
+                    return true;
+                });
+        });
+
+        async function markInviteResponded(invite) {
+            await graffiti.post(
+                {
+                    value: {
+                        activity: "RespondedToInvite",
+                        type: "Chat",
+                        channel: invite.value.channel,
+                        published: Date.now(),
+                    },
+                    channels: [session.value.actor],
+                    allowed: [],
+                },
+                session.value,
+            );
+        }
 
         // Accept Invite
         // Accepting posts a Chat object to the user's own actor ID channel
         // so it shows up in their chat list
         async function acceptInvite(invite) {
-            // existing — adds chat to their list
             await graffiti.post(
                 {
                     value: {
@@ -158,8 +210,6 @@ export default async () => ({
                 },
                 session.value,
             );
-
-            // new — announces their presence to the chat channel
             await graffiti.post(
                 {
                     value: {
@@ -172,10 +222,11 @@ export default async () => ({
                 },
                 session.value,
             );
+            await markInviteResponded(invite);
         }
 
         async function declineInvite(invite) {
-            await graffiti.delete(invite, session.value);
+            await markInviteResponded(invite);
         }
 
         function openChat(chat) {
@@ -204,6 +255,7 @@ export default async () => ({
             filteredInvites,
             acceptInvite,
             declineInvite,
+            markInviteResponded,
         };
     },
 });

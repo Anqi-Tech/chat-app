@@ -35,12 +35,13 @@
             {{ isCreatingChat ? "Creating..." : "Create Chat" }}
         </button>
     </form>
-    <p v-if="sortedChats.length === 0">
-        <em>No chats yet. Create one above!</em>
-    </p>
+    <p v-if="sortedChats.length === 0">No chats yet. Create one above!</p>
     <ul v-else>
         <li v-for="chat in sortedChats" :key="chat.url">
             <button @click="openChat(chat)">{{ chat.value.title }}</button>
+            <button @click="deleteChat(chat)" :disabled="isDeletingChat">
+                Delete
+            </button>
         </li>
     </ul>
 </template>

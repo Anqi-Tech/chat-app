@@ -19,12 +19,17 @@
             <input type="date" v-model="newTask.deadline" required />
         </div>
         <div>
-            <label>Assignees (comma-separated handles): </label>
-            <input
-                type="text"
-                v-model="newTask.assignees"
-                placeholder="e.g. alice, bob"
-            />
+            <label>Assignees: </label>
+            <select v-model="newTask.assignee">
+                <option value="" disabled>Select a member</option>
+                <option
+                    v-for="member in memberHandles"
+                    :key="member.actor"
+                    :value="member.actor"
+                >
+                    {{ member.handle }}
+                </option>
+            </select>
         </div>
         <div>
             <label>Description (optional): </label>
@@ -46,7 +51,10 @@
         <article v-for="task in sortedTasks" :key="task.url" class="task-card">
             <h4>{{ task.value.title }}</h4>
             <p>Due: {{ task.value.deadline }}</p>
-            <p>Assignees: {{ joinAssignees(task.value.assignees) }}</p>
+            <p>
+                Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                task.value.assignee }}
+            </p>
             <div class="task-status">
                 <p>Status:</p>
                 <select

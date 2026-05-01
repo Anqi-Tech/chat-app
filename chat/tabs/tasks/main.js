@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import {
     useGraffiti,
     useGraffitiSession,
@@ -16,6 +16,42 @@ export default async () => ({
 
         const chatChannel = computed(() => [props.chatId]);
 
+        // Chat Members
+        const { objects: memberObjects } = useGraffitiDiscover(
+            chatChannel,
+            {
+                properties: {
+                    value: {
+                        required: ["activity", "type", "channel", "published"],
+                        properties: {
+                            activity: { type: "string", const: "Join" },
+                            type: { type: "string", const: "Chat" },
+                            channel: { type: "string" },
+                            published: { type: "number" },
+                        },
+                    },
+                },
+            },
+            undefined,
+            true,
+        );
+        const members = computed(() => memberObjects.value.map((m) => m.actor));
+
+        const memberHandles = ref([]);
+        watch(
+            members,
+            async (newMembers) => {
+                memberHandles.value = await Promise.all(
+                    newMembers.map(async (actor) => ({
+                        actor,
+                        handle: await graffiti.actorToHandle(actor),
+                    })),
+                );
+            },
+            { immediate: true },
+        );
+
+        // Tasks
         const { objects: taskObjects, isFirstPoll: tasksLoading } =
             useGraffitiDiscover(
                 chatChannel,
@@ -26,7 +62,7 @@ export default async () => ({
                                 "type",
                                 "title",
                                 "deadline",
-                                "assignees",
+                                "assignee",
                                 "status",
                                 "published",
                             ],
@@ -34,7 +70,7 @@ export default async () => ({
                                 type: { type: "string", const: "Task" },
                                 title: { type: "string" },
                                 deadline: { type: "string" },
-                                assignees: { type: "array" },
+                                assignee: { type: "string" },
                                 status: { type: "string" },
                                 published: { type: "number" },
                             },
@@ -55,7 +91,7 @@ export default async () => ({
         const newTask = ref({
             title: "",
             deadline: "",
-            assignees: "",
+            assignee: "",
             description: "",
         });
         const isCreatingTask = ref(false);
@@ -67,17 +103,14 @@ export default async () => ({
             if (!newTask.value.title.trim() || !newTask.value.deadline) return;
             isCreatingTask.value = true;
             try {
-                const assigneeList = newTask.value.assignees
-                    .split(",")
-                    .map((s) => s.trim())
-                    .filter(Boolean);
+                const assigneeList = newTask.value.assignee;
                 await graffiti.post(
                     {
                         value: {
                             type: "Task",
                             title: newTask.value.title.trim(),
                             deadline: newTask.value.deadline,
-                            assignees: assigneeList,
+                            assignee: assigneeList,
                             status: "Not Started",
                             description: newTask.value.description.trim(),
                             published: Date.now(),
@@ -89,7 +122,7 @@ export default async () => ({
                 newTask.value = {
                     title: "",
                     deadline: "",
-                    assignees: "",
+                    assignee: "",
                     description: "",
                 };
                 showTaskForm.value = false;
@@ -107,13 +140,28 @@ export default async () => ({
             );
         }
 
-        function joinAssignees(assignees) {
-            return assignees.join(", ") || "None";
-        }
-
         function getDescription(description) {
             return description || "No additional description";
         }
+
+        const taskAssigneeHandles = ref({});
+        watch(
+            sortedTasks,
+            async (newTasks) => {
+                const entries = await Promise.all(
+                    newTasks
+                        .filter((t) => t.value.assignee)
+                        .map(async (t) => {
+                            const handle = await graffiti.actorToHandle(
+                                t.value.assignee,
+                            );
+                            return [t.value.assignee, handle];
+                        }),
+                );
+                taskAssigneeHandles.value = Object.fromEntries(entries);
+            },
+            { immediate: true },
+        );
 
         return {
             session,
@@ -125,8 +173,10 @@ export default async () => ({
             createTaskLabel,
             createTask,
             updateTaskStatus,
-            joinAssignees,
             getDescription,
+            members,
+            memberHandles,
+            taskAssigneeHandles,
         };
     },
 });

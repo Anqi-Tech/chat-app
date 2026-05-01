@@ -154,6 +154,8 @@ body {
 
 .message button {
     visibility: hidden;
+    margin-left: 1rem;
+    font-size: 0.75rem;
 }
 
 .message:hover button {

@@ -1,10 +1,42 @@
 <link rel="stylesheet" href="style.css" />
 
-<div>
-    <button @click="showTaskForm = !showTaskForm">
-        {{ showTaskForm ? "Cancel" : "New Task" }}
-    </button>
-    <form v-if="showTaskForm" @submit.prevent="createTask">
+<section class="task-tab">
+    <section class="task-tab-sub task-tab-tasks">
+        <h2>All Tasks</h2>
+        <p v-if="tasksLoading">Loading tasks...</p>
+        <p v-else-if="sortedTasks.length === 0">No tasks yet.</p>
+        <div v-else class="task-container">
+            <article
+                v-for="task in sortedTasks"
+                :key="task.url"
+                class="task-card"
+            >
+                <h4>{{ task.value.title }}</h4>
+                <p>Due: {{ task.value.deadline }}</p>
+                <p>
+                    Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                    task.value.assignee }}
+                </p>
+                <div class="task-status">
+                    <p>Status:</p>
+                    <select
+                        v-if="task.actor === $graffitiSession.value?.actor"
+                        :value="task.value.status"
+                        @change="updateTaskStatus(task, $event.target.value)"
+                    >
+                        <option>Not Started</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                    </select>
+                    <p v-else>{{ task.value.status }}</p>
+                </div>
+                <p>Description: {{ getDescription(task.value.description) }}</p>
+            </article>
+        </div>
+    </section>
+
+    <form @submit.prevent="createTask" class="task-tab-sub task-tab-add">
+        <h2>Add Task</h2>
         <div>
             <label>Title: </label>
             <input
@@ -31,7 +63,7 @@
                 </option>
             </select>
         </div>
-        <div>
+        <div class="task-desc-field">
             <label>Description (optional): </label>
             <textarea
                 v-model="newTask.description"
@@ -45,30 +77,4 @@
             {{ createTaskLabel }}
         </button>
     </form>
-    <p v-if="tasksLoading">Loading tasks...</p>
-    <p v-else-if="sortedTasks.length === 0">No tasks yet.</p>
-    <section v-else class="task-container">
-        <article v-for="task in sortedTasks" :key="task.url" class="task-card">
-            <h4>{{ task.value.title }}</h4>
-            <p>Due: {{ task.value.deadline }}</p>
-            <p>
-                Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
-                task.value.assignee }}
-            </p>
-            <div class="task-status">
-                <p>Status:</p>
-                <select
-                    v-if="task.actor === $graffitiSession.value?.actor"
-                    :value="task.value.status"
-                    @change="updateTaskStatus(task, $event.target.value)"
-                >
-                    <option>Not Started</option>
-                    <option>In Progress</option>
-                    <option>Completed</option>
-                </select>
-                <p v-else>{{ task.value.status }}</p>
-            </div>
-            <p>Description: {{ getDescription(task.value.description) }}</p>
-        </article>
-    </section>
-</div>
+</section>

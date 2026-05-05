@@ -13,6 +13,15 @@ body {
     height: 100%;
 }
 
+.invite-section input:focus,
+.chat-send-bar input:focus,
+.task-tab form input:focus,
+.task-tab form select:focus,
+.task-tab form textarea:focus {
+    outline: none;
+    background-color: #ffacd6;
+}
+
 /* CHAT */
 .chat-main {
     height: 100vh;
@@ -34,11 +43,14 @@ body {
 }
 
 /* Chat Tab */
-.chat-tab {
+.chat-tab,
+.task-tab {
     background-color: #efcdcd;
     flex: 1;
     display: flex;
     overflow: hidden;
+    padding: 2rem;
+    gap: 2rem;
 }
 
 .chat-tab button {
@@ -55,7 +67,6 @@ body {
 
 .chat-tab-main {
     background-color: #ffebeb;
-    margin: 2rem;
     padding: 2rem;
     flex: 1;
     display: flex;
@@ -85,11 +96,11 @@ body {
 }
 
 .invite-section input {
-    all: unset;
     font-size: 1rem;
     background-color: #ffc9e4;
     padding: 0.25rem 1rem;
     border-radius: 20px;
+    border: none;
 }
 
 .invite-section button {
@@ -114,12 +125,12 @@ body {
 }
 
 .chat-send-bar input {
-    all: unset;
     font-size: 1rem;
     background-color: #ffc9e4;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     flex: 1;
+    border: none;
 }
 
 .chat-send-bar button {
@@ -127,6 +138,22 @@ body {
 }
 
 /* Task Tab */
+.task-tab h2 {
+    margin: 0;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.task-tab-sub {
+    background-color: #ffebeb;
+    padding: 2rem;
+}
+
+.task-tab-tasks {
+    flex: 1;
+    overflow: hidden;
+}
+
 .task-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -148,6 +175,66 @@ body {
 
 .task-status {
     display: flex;
+}
+
+.task-tab form {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-tab-add {
+    min-width: fit-content;
+    width: 20vw;
+}
+
+.task-tab form div {
+    margin-bottom: 0.5rem;
+}
+
+.task-tab label {
+    font-size: 1.25rem;
+}
+
+.task-tab form input {
+    font-size: 1rem;
+    background-color: #ffc9e4;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: none;
+}
+
+.task-tab form select {
+    font-size: 1rem;
+    background-color: #ffc9e4;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: none;
+}
+
+.task-tab form textarea {
+    font-size: 1rem;
+    background-color: #ffc9e4;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: none;
+    resize: none;
+    flex: 1;
+}
+
+.task-tab button {
+    border: none;
+    font-size: 1rem;
+    background-color: #ff7dbe;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+.task-desc-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
 }
 
 /* COMPONENTS */

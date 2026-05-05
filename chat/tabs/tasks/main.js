@@ -87,7 +87,6 @@ export default async () => ({
             ),
         );
 
-        const showTaskForm = ref(false);
         const newTask = ref({
             title: "",
             deadline: "",
@@ -125,7 +124,6 @@ export default async () => ({
                     assignee: "",
                     description: "",
                 };
-                showTaskForm.value = false;
             } finally {
                 isCreatingTask.value = false;
             }
@@ -167,7 +165,6 @@ export default async () => ({
             session,
             sortedTasks,
             tasksLoading,
-            showTaskForm,
             newTask,
             isCreatingTask,
             createTaskLabel,

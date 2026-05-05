@@ -161,6 +161,22 @@ export default async () => ({
             { immediate: true },
         );
 
+        // Task Filter
+        const filterStatus = ref("");
+        const filterAssignee = ref("");
+
+        const filteredTasks = computed(() =>
+            sortedTasks.value.filter((task) => {
+                const statusMatch =
+                    !filterStatus.value ||
+                    task.value.status === filterStatus.value;
+                const assigneeMatch =
+                    !filterAssignee.value ||
+                    task.value.assignee === filterAssignee.value;
+                return statusMatch && assigneeMatch;
+            }),
+        );
+
         return {
             session,
             sortedTasks,
@@ -174,6 +190,9 @@ export default async () => ({
             members,
             memberHandles,
             taskAssigneeHandles,
+            filterStatus,
+            filterAssignee,
+            filteredTasks,
         };
     },
 });

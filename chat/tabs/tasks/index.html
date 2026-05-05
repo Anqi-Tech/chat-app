@@ -3,11 +3,35 @@
 <section class="task-tab">
     <section class="task-tab-sub task-tab-tasks">
         <h2>All Tasks</h2>
+
+        <div class="task-filters">
+            <select v-model="filterStatus">
+                <option value="">All Statuses</option>
+                <option>Not Started</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+                <option>Needs Review</option>
+                <option>Blocked</option>
+            </select>
+            <select v-model="filterAssignee">
+                <option value="">All Assignees</option>
+                <option
+                    v-for="member in memberHandles"
+                    :key="member.actor"
+                    :value="member.actor"
+                >
+                    {{ member.handle }}
+                </option>
+            </select>
+        </div>
+
         <p v-if="tasksLoading">Loading tasks...</p>
-        <p v-else-if="sortedTasks.length === 0">No tasks yet.</p>
+        <p v-else-if="filteredTasks.length === 0">
+            No tasks match the current filters.
+        </p>
         <div v-else class="task-container">
             <article
-                v-for="task in sortedTasks"
+                v-for="task in filteredTasks"
                 :key="task.url"
                 class="task-card"
             >
@@ -27,6 +51,8 @@
                         <option>Not Started</option>
                         <option>In Progress</option>
                         <option>Completed</option>
+                        <option>Needs Review</option>
+                        <option>Blocked</option>
                     </select>
                     <p v-else>{{ task.value.status }}</p>
                 </div>

@@ -154,6 +154,42 @@ body {
     overflow: hidden;
 }
 
+.task-filters {
+    background-color: #ffc9e4;
+    margin: 0 -2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+}
+
+.task-filters h3 {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.task-filters-dropdowns {
+    display: flex;
+    gap: 3rem;
+}
+
+.task-filters label {
+    font-size: 1.25rem;
+}
+
+.task-filters select {
+    font-size: 1rem;
+    background-color: #ff7dbe;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: none;
+}
+
+.task-filters select:hover,
+.task-filters select:focus {
+    outline: none;
+    background-color: #ff5eae;
+}
+
 .task-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -192,7 +228,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.task-tab label {
+.task-tab-add label {
     font-size: 1.25rem;
 }
 

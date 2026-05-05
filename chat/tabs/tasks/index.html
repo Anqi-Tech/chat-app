@@ -5,24 +5,35 @@
         <h2>All Tasks</h2>
 
         <div class="task-filters">
-            <select v-model="filterStatus">
-                <option value="">All Statuses</option>
-                <option>Not Started</option>
-                <option>In Progress</option>
-                <option>Completed</option>
-                <option>Needs Review</option>
-                <option>Blocked</option>
-            </select>
-            <select v-model="filterAssignee">
-                <option value="">All Assignees</option>
-                <option
-                    v-for="member in memberHandles"
-                    :key="member.actor"
-                    :value="member.actor"
-                >
-                    {{ member.handle }}
-                </option>
-            </select>
+            <h3>Filter By:</h3>
+
+            <div class="task-filters-dropdowns">
+                <div>
+                    <label>Assignee: </label>
+                    <select v-model="filterAssignee">
+                        <option value="">All Assignees</option>
+                        <option
+                            v-for="member in memberHandles"
+                            :key="member.actor"
+                            :value="member.actor"
+                        >
+                            {{ member.handle }}
+                        </option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Status: </label>
+                    <select v-model="filterStatus">
+                        <option value="">All Statuses</option>
+                        <option>Not Started</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+                        <option>Needs Review</option>
+                        <option>Blocked</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <p v-if="tasksLoading">Loading tasks...</p>

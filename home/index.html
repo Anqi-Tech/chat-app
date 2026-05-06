@@ -1,47 +1,64 @@
-<div v-if="!$graffitiSession.value">
-    <h1>Group Project Chat</h1>
-    <p>Please log in to continue.</p>
-    <button @click="$graffiti.login()">Log In</button>
-</div>
+<link rel="stylesheet" href="style.css" />
+
+<section v-if="!$graffitiSession.value" class="homepage">
+    <header class="homepage-header">
+        <h1>Group Project Chat</h1>
+        <button @click="$graffiti.login()">Log In</button>
+    </header>
+
+    <p class="login-message">Please log in to continue.</p>
+</section>
 
 <template v-else>
-    <h1>Group Project Chat</h1>
-    <button @click="$graffiti.logout($graffitiSession.value)">Log Out</button>
-
-    <section v-if="filteredInvites.length > 0">
-        <h2>Pending Invites</h2>
-        <ul>
-            <invite-item
-                v-for="invite in filteredInvites"
-                :key="invite.url"
-                :invite="invite"
-                @accept="acceptInvite"
-                @decline="declineInvite"
-            />
-        </ul>
-    </section>
-
-    <h2>My Chats</h2>
-    <form @submit.prevent="createChat">
-        <input
-            type="text"
-            v-model="newChatTitle"
-            placeholder="New chat name..."
-        />
-        <button
-            type="submit"
-            :disabled="!newChatTitle.trim() || isCreatingChat"
-        >
-            {{ isCreatingChat ? "Creating..." : "Create Chat" }}
-        </button>
-    </form>
-    <p v-if="sortedChats.length === 0">No chats yet. Create one above!</p>
-    <ul v-else>
-        <li v-for="chat in sortedChats" :key="chat.url">
-            <button @click="openChat(chat)">{{ chat.value.title }}</button>
-            <button @click="deleteChat(chat)" :disabled="isDeletingChat">
-                Delete
+    <section class="homepage">
+        <header class="homepage-header">
+            <h1>Group Project Chat</h1>
+            <button @click="$graffiti.logout($graffitiSession.value)">
+                Log Out
             </button>
-        </li>
-    </ul>
+        </header>
+
+        <main class="homepage-main">
+            <section v-if="filteredInvites.length > 0" class="invite-container">
+                <invite-item
+                    v-for="invite in filteredInvites"
+                    :key="invite.url"
+                    :invite="invite"
+                    @accept="acceptInvite"
+                    @decline="declineInvite"
+                />
+            </section>
+
+            <h2>My Chats</h2>
+            <form @submit.prevent="createChat">
+                <input
+                    type="text"
+                    v-model="newChatTitle"
+                    placeholder="New chat name..."
+                />
+                <button
+                    type="submit"
+                    :disabled="!newChatTitle.trim() || isCreatingChat"
+                >
+                    {{ isCreatingChat ? "Creating..." : "Create Chat" }}
+                </button>
+            </form>
+            <p v-if="sortedChats.length === 0">
+                No chats yet. Create one above!
+            </p>
+            <ul v-else>
+                <li v-for="chat in sortedChats" :key="chat.url">
+                    <button @click="openChat(chat)">
+                        {{ chat.value.title }}
+                    </button>
+                    <button
+                        @click="deleteChat(chat)"
+                        :disabled="isDeletingChat"
+                    >
+                        Delete
+                    </button>
+                </li>
+            </ul>
+        </main>
+    </section>
 </template>

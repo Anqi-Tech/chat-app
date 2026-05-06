@@ -1,6 +1,14 @@
-<li>
-    {{ invite.value.title }} — invited by
-    <graffiti-actor-to-handle :actor="invite.actor" />
-    <button @click="$emit('accept', invite)">Accept</button>
-    <button @click="$emit('decline', invite)">Decline</button>
-</li>
+<article class="invite-notif">
+    <p>
+        <graffiti-actor-to-handle :actor="invite.actor" /> has invited you to
+        join {{ invite.value.title }}!
+    </p>
+    <div>
+        <button @click="$emit('accept', invite)" class="accept-btn">
+            Accept
+        </button>
+        <button @click="$emit('decline', invite)" class="decline-btn">
+            Decline
+        </button>
+    </div>
+</article>

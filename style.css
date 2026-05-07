@@ -85,7 +85,8 @@ button:enabled:hover {
     font-weight: bold;
 }
 
-.invite-container {
+.invite-container,
+.chat-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -94,6 +95,36 @@ button:enabled:hover {
 .homepage-chats h2 {
     margin: 0;
     font-size: 2rem;
+}
+
+.chat-container {
+    padding-top: 2rem;
+}
+
+.chat-card {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e9b9fb;
+    padding: 0.75rem 1rem;
+    border-radius: 15px;
+    border: 1px solid black;
+    transition: transform 200ms ease;
+}
+
+.chat-card:hover {
+    transform: translateY(-5px);
+}
+
+.open-btn {
+    margin-right: 0.5rem;
+    background-color: #cf53fc;
+}
+
+.open-btn:enabled:hover {
+    background-color: #cf53fc;
+    filter: brightness(1.25);
 }
 
 /* -- CHAT ---------------------------------------------------------- */
@@ -427,7 +458,7 @@ button:enabled:hover {
     }
 }
 
-/* Invitation */
+/* Invitation (And Some of Chat Card) */
 .invite-notif {
     display: flex;
     gap: 0.5rem;
@@ -439,14 +470,16 @@ button:enabled:hover {
     border: 1px solid black;
 }
 
-.invite-notif p {
+.invite-notif p,
+.chat-card p {
     font-weight: bold;
     font-size: 1.1rem;
     margin-right: 2rem;
     margin: 0;
 }
 
-.invite-notif button {
+.invite-notif button,
+.chat-card button {
     padding: 0.3rem 1rem;
     border-radius: 15px;
 }
@@ -461,11 +494,13 @@ button:enabled:hover {
     filter: brightness(1.25);
 }
 
-.decline-btn {
+.decline-btn,
+.leave-btn {
     background-color: #ff4d4d;
 }
 
-.decline-btn:enabled:hover {
+.decline-btn:enabled:hover,
+.leave-btn:enabled:hover {
     background-color: #ff4d4d;
     filter: brightness(1.25);
 }

@@ -56,19 +56,28 @@
                 <p v-if="sortedChats.length === 0">
                     No chats yet. Create one above!
                 </p>
-                <ul v-else>
-                    <li v-for="chat in sortedChats" :key="chat.url">
-                        <button @click="openChat(chat)">
-                            {{ chat.value.title }}
-                        </button>
-                        <button
-                            @click="deleteChat(chat)"
-                            :disabled="isDeletingChat"
-                        >
-                            Delete
-                        </button>
-                    </li>
-                </ul>
+                <section v-else class="chat-container">
+                    <article
+                        v-for="chat in sortedChats"
+                        :key="chat.url"
+                        class="chat-card"
+                    >
+                        <p>{{ chat.value.title }}</p>
+
+                        <div>
+                            <button @click="openChat(chat)" class="open-btn">
+                                Enter
+                            </button>
+                            <button
+                                @click="deleteChat(chat)"
+                                :disabled="isDeletingChat"
+                                class="leave-btn"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </article>
+                </section>
             </section>
         </main>
     </section>

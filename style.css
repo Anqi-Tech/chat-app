@@ -167,6 +167,7 @@ body {
 
 .invite-section p {
     flex-basis: 100%;
+    margin-bottom: 0;
 }
 
 .chat-tab-messages {
@@ -373,12 +374,21 @@ body {
 
 .message button {
     visibility: hidden;
-    margin-left: 1rem;
+    opacity: 0;
+    margin-left: 1.5rem;
     font-size: 0.75rem;
+
+    transform: translateX(-15px);
+
+    transition:
+        opacity 400ms ease,
+        transform 400ms ease;
 }
 
 .message:hover button {
     visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Invitation */

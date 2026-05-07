@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch, nextTick, onMounted } from "vue";
 import {
     useGraffiti,
     useGraffitiSession,
@@ -180,6 +180,21 @@ export default async () => ({
             inviteError.value = "";
             inviteSuccess.value = false;
         }
+
+        // Chat goes to bottom when new message is sent
+        onMounted(() => {
+            const container = document.querySelector(".chat-tab-messages");
+            let prevLength = 0;
+            watch(sortedMessages, async (newMessages) => {
+                if (newMessages.length > prevLength) {
+                    prevLength = newMessages.length;
+                    await nextTick();
+                    if (container) {
+                        container.scrollTop = container.scrollHeight;
+                    }
+                }
+            });
+        });
 
         return {
             session,

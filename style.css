@@ -58,7 +58,6 @@ body {
 }
 
 .homepage-header button {
-    border: none;
     font-size: 1rem;
     background-color: var(--input-dark);
     padding: 0.5rem 2rem;
@@ -108,7 +107,6 @@ body {
 }
 
 .chat-tab button {
-    border: none;
     font-size: 1rem;
     background-color: var(--input-dark);
     padding: 0.5rem 1rem;
@@ -156,7 +154,7 @@ body {
     background-color: var(--input-light);
     padding: 0.25rem 1rem;
     border-radius: 20px;
-    border: none;
+    border: 1px solid black;
 }
 
 .invite-section button {
@@ -191,6 +189,7 @@ body {
     display: flex;
     font-size: 3rem;
     gap: 1rem;
+    padding-top: 1rem;
 }
 
 .chat-send-bar input {
@@ -199,7 +198,7 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     flex: 1;
-    border: none;
+    border: 1px solid black;
 }
 
 .chat-send-bar button {
@@ -325,7 +324,7 @@ body {
     background-color: var(--input-light);
     padding: 0.25rem 0.5rem;
     border-radius: 20px;
-    border: none;
+    border: 1px solid black;
 }
 
 .task-tab form select {
@@ -333,7 +332,7 @@ body {
     background-color: var(--input-light);
     padding: 0.25rem 0.5rem;
     border-radius: 20px;
-    border: none;
+    border: 1px solid black;
 }
 
 .task-tab form textarea {
@@ -341,13 +340,12 @@ body {
     background-color: var(--input-light);
     padding: 0.5rem 1rem;
     border-radius: 10px;
-    border: none;
+    border: 1px solid black;
     resize: none;
     flex: 1;
 }
 
 .task-tab button {
-    border: none;
     font-size: 1rem;
     background-color: var(--input-dark);
     padding: 0.5rem 1rem;
@@ -408,6 +406,21 @@ body {
     transform: translateX(0);
 }
 
+.message {
+    animation: slideUp 200ms ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Invitation */
 .invite-notif {
     display: flex;
@@ -428,7 +441,6 @@ body {
 }
 
 .invite-notif button {
-    border: none;
     padding: 0.3rem 1rem;
     border-radius: 15px;
     font-size: 1rem;

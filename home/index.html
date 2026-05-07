@@ -19,6 +19,13 @@
         </header>
 
         <main class="homepage-main">
+            <p class="homepage-username">
+                Hello,
+                <graffiti-actor-to-handle
+                    :actor="$graffitiSession.value.actor"
+                />!
+            </p>
+
             <section v-if="filteredInvites.length > 0" class="invite-container">
                 <invite-item
                     v-for="invite in filteredInvites"
@@ -29,9 +36,10 @@
                 />
             </section>
 
-            <section>
+            <section class="homepage-chats">
                 <h2>My Chats</h2>
-                <form @submit.prevent="createChat">
+
+                <form @submit.prevent="createChat" class="chat-send-bar">
                     <input
                         type="text"
                         v-model="newChatTitle"
@@ -44,6 +52,7 @@
                         {{ isCreatingChat ? "Creating..." : "Create Chat" }}
                     </button>
                 </form>
+
                 <p v-if="sortedChats.length === 0">
                     No chats yet. Create one above!
                 </p>

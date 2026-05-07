@@ -20,6 +20,17 @@ body {
     box-sizing: border-box;
 }
 
+button {
+    background-color: var(--input-dark);
+    font-size: 1rem;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+button:enabled:hover {
+    background-color: var(--input-dark-focus);
+}
+
 #app {
     height: 100%;
 }
@@ -58,21 +69,31 @@ body {
 }
 
 .homepage-header button {
-    font-size: 1rem;
-    background-color: var(--input-dark);
     padding: 0.5rem 2rem;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .homepage-main {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.homepage-username {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .invite-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.homepage-chats h2 {
+    margin: 0;
+    font-size: 2rem;
 }
 
 /* -- CHAT ---------------------------------------------------------- */
@@ -107,16 +128,7 @@ body {
 }
 
 .chat-tab button {
-    font-size: 1rem;
-    background-color: var(--input-dark);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
-    border: 1px solid black;
-}
-
-.chat-tab button:enabled:hover,
-.homepage-header button:hover {
-    background-color: var(--input-dark-focus);
 }
 
 .chat-tab-main {
@@ -346,12 +358,8 @@ body {
 }
 
 .task-tab button {
-    font-size: 1rem;
-    background-color: var(--input-dark);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
     margin-top: 1rem;
-    border: 1px solid black;
 }
 
 .task-desc-field {
@@ -392,9 +400,7 @@ body {
     opacity: 0;
     margin-left: 1.5rem;
     font-size: 0.75rem;
-
     transform: translateX(-15px);
-
     transition:
         opacity 400ms ease,
         transform 400ms ease;
@@ -443,21 +449,25 @@ body {
 .invite-notif button {
     padding: 0.3rem 1rem;
     border-radius: 15px;
-    font-size: 1rem;
-    border: 1px solid black;
-}
-
-.invite-notif button:hover {
-    filter: brightness(1.25);
 }
 
 .accept-btn {
     margin-right: 0.5rem;
-    background-color: rgb(0, 203, 0);
+    background-color: #00cb00;
+}
+
+.accept-btn:enabled:hover {
+    background-color: #00cb00;
+    filter: brightness(1.25);
 }
 
 .decline-btn {
-    background-color: rgb(255, 77, 77);
+    background-color: #ff4d4d;
+}
+
+.decline-btn:enabled:hover {
+    background-color: #ff4d4d;
+    filter: brightness(1.25);
 }
 
 .slide-away-enter-active,

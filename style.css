@@ -170,6 +170,18 @@ body {
     margin-bottom: 0;
 }
 
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    opacity: 0;
+    transform: translateX(-10px);
+}
 .chat-tab-messages {
     flex: 1;
     overflow-y: auto;

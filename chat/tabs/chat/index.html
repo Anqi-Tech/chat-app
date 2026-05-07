@@ -9,29 +9,41 @@
         <div class="divider"></div>
 
         <section class="invite-section">
-            <button
-                v-if="!showInviteForm"
-                @click="showInviteForm = true; inviteSuccess = false"
-            >
-                Invite Someone
-            </button>
-            <form v-if="showInviteForm" @submit.prevent="sendInvite">
-                <label>Person to invite: </label>
-                <input
-                    type="text"
-                    v-model="inviteeActor"
-                    placeholder="handle.graffiti.actor"
-                />
-                <button
-                    type="submit"
-                    :disabled="!inviteeActor.trim() || isInviting"
-                >
-                    {{ isInviting ? "Sending..." : "Send Invite" }}
-                </button>
-                <button @click="cancelInvite">Cancel</button>
-                <p v-if="inviteError">{{ inviteError }}</p>
-                <p v-if="inviteSuccess">Invitation sent!</p>
-            </form>
+            <section class="invite-section">
+                <transition name="slide-fade" mode="out-in">
+                    <button
+                        v-if="!showInviteForm"
+                        key="invite-button"
+                        @click="showInviteForm = true; inviteSuccess = false"
+                    >
+                        Invite Someone
+                    </button>
+
+                    <form v-else key="invite-form" @submit.prevent="sendInvite">
+                        <label>Person to invite: </label>
+
+                        <input
+                            type="text"
+                            v-model="inviteeActor"
+                            placeholder="handle.graffiti.actor"
+                        />
+
+                        <button
+                            type="submit"
+                            :disabled="!inviteeActor.trim() || isInviting"
+                        >
+                            {{ isInviting ? "Sending..." : "Send Invite" }}
+                        </button>
+
+                        <button type="button" @click="cancelInvite">
+                            Cancel
+                        </button>
+
+                        <p v-if="inviteError">{{ inviteError }}</p>
+                        <p v-if="inviteSuccess">Invitation sent!</p>
+                    </form>
+                </transition>
+            </section>
         </section>
         <div class="divider"></div>
 

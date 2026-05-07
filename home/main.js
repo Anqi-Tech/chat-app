@@ -159,14 +159,30 @@ export default async () => ({
             () => new Set(myChats.value.map((c) => c.value.channel)),
         );
 
+        const respondedChannelTimes = computed(() => {
+            const map = new Map();
+            respondedInvites.value.forEach((r) => {
+                const existing = map.get(r.value.channel);
+                if (!existing || r.value.published > existing) {
+                    map.set(r.value.channel, r.value.published);
+                }
+            });
+            return map;
+        });
+
         const filteredInvites = computed(() => {
             const seen = new Set();
             return pendingInvites.value
                 .toSorted((a, b) => b.value.published - a.value.published)
                 .filter((invite) => {
+                    const respondedAt = respondedChannelTimes.value.get(
+                        invite.value.channel,
+                    );
+                    const alreadyResponded =
+                        respondedAt && invite.value.published <= respondedAt;
                     if (
                         joinedChannels.value.has(invite.value.channel) ||
-                        respondedChannels.value.has(invite.value.channel) ||
+                        alreadyResponded ||
                         seen.has(invite.value.channel)
                     ) {
                         return false;

@@ -97,6 +97,25 @@ export default async () => ({
 
         const members = computed(() => memberObjects.value.map((m) => m.actor));
 
+        const memberHandles = ref([]);
+
+        watch(
+            members,
+            async (newMembers) => {
+                memberHandles.value = await Promise.all(
+                    newMembers.map(async (actor) => ({
+                        actor,
+                        handle: await graffiti.actorToHandle(actor),
+                    })),
+                );
+            },
+            { immediate: true },
+        );
+
+        const memberList = computed(() =>
+            memberHandles.value.map((m) => m.handle).join(", "),
+        );
+
         // Invite
         // To get the chat title for the invite we discover the chat object
         // from the current user's own actor ID channel.
@@ -213,6 +232,7 @@ export default async () => ({
             cancelInvite,
             chatTitle,
             members,
+            memberList,
         };
     },
 });

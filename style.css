@@ -185,6 +185,13 @@ button:enabled:hover {
 .chat-tab-head {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.chat-tab-head p {
+    font-weight: bold;
+    flex-basis: 100%;
+    margin-bottom: 0;
 }
 
 .chat-tab-main h1 {

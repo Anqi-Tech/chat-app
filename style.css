@@ -135,7 +135,12 @@ button:enabled:hover {
     overflow: hidden;
 }
 
-.chat-main nav * {
+.chat-main nav {
+    display: flex;
+    align-items: center;
+}
+
+.chat-main nav *:not(button) {
     all: unset;
     font-size: 3rem;
     background-color: var(--coral);
@@ -145,6 +150,12 @@ button:enabled:hover {
 
 .chat-main nav a.router-link-exact-active {
     background-color: var(--bg-dark);
+}
+
+.chat-main nav button {
+    padding: 0.5rem 1rem;
+    margin-left: auto;
+    margin-right: 2rem;
 }
 
 /* -- CHAT TAB ---------------------------------------------------------- */

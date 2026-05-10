@@ -249,16 +249,6 @@ export default async () => ({
             router.push(`/chat/${chat.value.channel}`);
         }
 
-        const isDeletingChat = ref(false);
-        async function deleteChat(chat) {
-            isDeletingChat.value = true;
-            try {
-                await graffiti.delete(chat, session.value);
-            } finally {
-                isDeletingChat.value = false;
-            }
-        }
-
         return {
             session,
             sortedChats,
@@ -266,8 +256,6 @@ export default async () => ({
             isCreatingChat,
             createChat,
             openChat,
-            isDeletingChat,
-            deleteChat,
             filteredInvites,
             acceptInvite,
             declineInvite,

@@ -4,7 +4,9 @@
     <section class="chat-tab-main">
         <div class="chat-tab-head">
             <h1>{{chatTitle}}</h1>
-            <button @click="$router.push('/')">← Back to Chats</button>
+            <button @click="deleteChat" :disabled="isDeletingChat">
+                {{ isDeletingChat ? "Leaving..." : "Leave Chat" }}
+            </button>
             <p>{{ memberList }}</p>
         </div>
         <div class="divider"></div>

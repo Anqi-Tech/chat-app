@@ -1,4 +1,5 @@
 import { ref, computed, watch, nextTick, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import {
     useGraffiti,
     useGraffitiSession,
@@ -20,6 +21,8 @@ export default async () => ({
         const session = useGraffitiSession();
 
         const chatChannel = computed(() => [props.chatId]);
+
+        const router = useRouter();
 
         // Messages
         const { objects: messageObjects, isFirstPoll: messagesLoading } =
@@ -215,6 +218,29 @@ export default async () => ({
             });
         });
 
+        // Leave Chat
+        const isDeletingChat = ref(false);
+        async function deleteChat() {
+            if (
+                !confirm(
+                    "Are you sure you want to leave this chat? This cannot be undone.",
+                )
+            )
+                return;
+            isDeletingChat.value = true;
+            try {
+                const chat = myChatObjects.value.find(
+                    (c) => c.value.channel === props.chatId,
+                );
+                if (chat) {
+                    await graffiti.delete(chat, session.value);
+                    router.push("/");
+                }
+            } finally {
+                isDeletingChat.value = false;
+            }
+        }
+
         return {
             session,
             sortedMessages,
@@ -233,6 +259,8 @@ export default async () => ({
             chatTitle,
             members,
             memberList,
+            isDeletingChat,
+            deleteChat,
         };
     },
 });

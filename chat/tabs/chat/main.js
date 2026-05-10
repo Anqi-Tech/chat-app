@@ -229,13 +229,19 @@ export default async () => ({
                 return;
             isDeletingChat.value = true;
             try {
+                // Delete the chat object from the user's own actor ID channel
                 const chat = myChatObjects.value.find(
                     (c) => c.value.channel === props.chatId,
                 );
-                if (chat) {
-                    await graffiti.delete(chat, session.value);
-                    router.push("/");
-                }
+                if (chat) await graffiti.delete(chat, session.value);
+
+                // Delete the join object from the chat channel
+                const join = memberObjects.value.find(
+                    (m) => m.actor === session.value.actor,
+                );
+                if (join) await graffiti.delete(join, session.value);
+
+                router.push("/");
             } finally {
                 isDeletingChat.value = false;
             }

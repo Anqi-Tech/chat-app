@@ -2,6 +2,10 @@
 
 <section class="task-tab">
     <div class="task-view-toggle">
+        <div
+            class="task-view-toggle-slider"
+            :class="taskView === 'add' ? 'slide-right' : 'slide-left'"
+        ></div>
         <button @click="taskView = 'list'" :disabled="taskView === 'list'">
             All Tasks
         </button>
@@ -97,8 +101,8 @@
         v-show="isWideScreen || taskView === 'add'"
     >
         <h2>Add Task</h2>
-        <div>
-            <label>Title: </label>
+        <div class="modal-title">
+            <label>Title:&nbsp;</label>
             <input
                 type="text"
                 v-model="newTask.title"

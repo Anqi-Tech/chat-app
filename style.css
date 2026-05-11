@@ -570,6 +570,7 @@ button:enabled:hover {
 
 .modal-title {
     display: flex;
+    align-items: center;
 }
 
 .modal-title input {
@@ -623,7 +624,7 @@ button:enabled:hover {
 }
 
 .task-tab form div {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .task-tab-add label {
@@ -828,24 +829,53 @@ button:enabled:hover {
     .task-tab h2 {
         font-size: 2rem;
     }
+
     .task-view-toggle {
         display: flex;
         background-color: var(--input-light);
         border-radius: 20px;
         border: 1px solid black;
+        position: relative;
     }
+
+    .task-view-toggle-slider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        background-color: var(--input-dark);
+        border-radius: 20px;
+        transition: transform 300ms ease;
+    }
+    .task-view-toggle-slider.slide-left {
+        transform: translateX(0%);
+    }
+    .task-view-toggle-slider.slide-right {
+        transform: translateX(100%);
+    }
+
     .task-view-toggle button {
         font-size: 1.25rem;
         flex: 1;
         padding: 0.5rem 0;
+        border: none;
+        background: transparent;
+        position: relative;
+        z-index: 1;
     }
+
     .task-view-toggle button:disabled {
-        background-color: var(--input-dark);
         color: black;
     }
+
     .task-view-toggle button:not(:disabled) {
-        border: none;
-        background-color: var(--input-light);
+        background-color: transparent;
+    }
+
+    .task-tab-add {
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
@@ -978,6 +1008,32 @@ button:enabled:hover {
         margin-top: auto;
         padding: 0.5rem;
     }
+
+    /* Task Tab */
+    .task-tab {
+        gap: 1rem;
+    }
+    .task-view-toggle button {
+        font-size: 0.8rem;
+    }
+    .task-tab h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    .task-filters h3 {
+        font-size: 1.25rem;
+    }
+    .task-filters label {
+        font-size: 1rem;
+    }
+    .task-filters-dropdowns {
+        gap: 1rem;
+        flex-direction: column;
+    }
+    .task-filters select {
+        padding: 0.1rem 0.25rem;
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 425px) {
@@ -1047,5 +1103,18 @@ button:enabled:hover {
         min-width: unset;
         width: 100%;
         box-sizing: border-box;
+    }
+
+    /* Task Tab */
+    .task-card {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .task-card-col h4,
+    .task-card-col p {
+        white-space: normal;
+    }
+    .task-card button {
+        width: 100%;
     }
 }

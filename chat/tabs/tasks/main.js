@@ -83,7 +83,8 @@ export default async () => ({
 
         const sortedTasks = computed(() =>
             taskObjects.value.toSorted(
-                (a, b) => a.value.published - b.value.published,
+                (a, b) =>
+                    new Date(a.value.deadline) - new Date(b.value.deadline),
             ),
         );
 
@@ -177,6 +178,18 @@ export default async () => ({
             }),
         );
 
+        // Task Background Color By Status
+        function statusClass(status) {
+            const map = {
+                "Not Started": "status-not-started",
+                "In Progress": "status-in-progress",
+                "Needs Review": "status-needs-review",
+                Blocked: "status-blocked",
+                Completed: "status-completed",
+            };
+            return map[status] ?? "";
+        }
+
         return {
             session,
             sortedTasks,
@@ -193,6 +206,7 @@ export default async () => ({
             filterStatus,
             filterAssignee,
             filteredTasks,
+            statusClass,
         };
     },
 });

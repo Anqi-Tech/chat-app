@@ -322,6 +322,7 @@ button:enabled:hover {
     padding-top: 2rem;
 }
 
+/* Task Card */
 .task-card {
     display: flex;
     flex-direction: column;
@@ -333,11 +334,6 @@ button:enabled:hover {
     background-color: var(--blue);
     min-width: 0;
     border: 1px solid black;
-    transition: transform 200ms ease;
-}
-
-.task-card:hover {
-    transform: translateY(-5px);
 }
 
 .task-card * {
@@ -350,8 +346,39 @@ button:enabled:hover {
     text-overflow: ellipsis;
 }
 
+.task-card select {
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 0 0.25rem;
+    background-color: #f6f6f6;
+}
+
+.task-card select:focus {
+    outline: none;
+}
+
 .task-status {
     display: flex;
+}
+
+.status-not-started {
+    background-color: #c1c1c1;
+}
+
+.status-in-progress {
+    background-color: #ffe693;
+}
+
+.status-completed {
+    background-color: #9fe8b0;
+}
+
+.status-needs-review {
+    background-color: #a2cfff;
+}
+
+.status-blocked {
+    background-color: #f1aeb4;
 }
 
 /* Add Task Sidebar */

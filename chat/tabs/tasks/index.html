@@ -45,6 +45,7 @@
                 v-for="task in filteredTasks"
                 :key="task.url"
                 class="task-card"
+                :class="statusClass(task.value.status)"
             >
                 <h4>{{ task.value.title }}</h4>
                 <p>Due: {{ task.value.deadline }}</p>

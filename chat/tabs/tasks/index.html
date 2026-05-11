@@ -47,28 +47,34 @@
                 class="task-card"
                 :class="statusClass(task.value.status)"
             >
-                <h4>{{ task.value.title }}</h4>
-                <p>Due: {{ task.value.deadline }}</p>
-                <p>
-                    Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
-                    task.value.assignee }}
-                </p>
-                <div class="task-status">
-                    <p>Status:&nbsp;</p>
-                    <select
-                        v-if="task.actor === $graffitiSession.value?.actor"
-                        :value="task.value.status"
-                        @change="updateTaskStatus(task, $event.target.value)"
-                    >
-                        <option>Not Started</option>
-                        <option>In Progress</option>
-                        <option>Completed</option>
-                        <option>Needs Review</option>
-                        <option>Blocked</option>
-                    </select>
-                    <p v-else>{{ task.value.status }}</p>
+                <div class="task-card-col">
+                    <h4>{{ task.value.title }}</h4>
+                    <p>Due: {{ task.value.deadline }}</p>
+                    <p>
+                        Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                        task.value.assignee }}
+                    </p>
+                    <div class="task-status">
+                        <p>Status:&nbsp;</p>
+                        <select
+                            v-if="task.actor === $graffitiSession.value?.actor"
+                            :value="task.value.status"
+                            @change="updateTaskStatus(task, $event.target.value)"
+                        >
+                            <option>Not Started</option>
+                            <option>In Progress</option>
+                            <option>Completed</option>
+                            <option>Needs Review</option>
+                            <option>Blocked</option>
+                        </select>
+                        <p v-else>{{ task.value.status }}</p>
+                    </div>
+                    <p>
+                        Description: {{ getDescription(task.value.description)
+                        }}
+                    </p>
                 </div>
-                <p>Description: {{ getDescription(task.value.description) }}</p>
+                <button>Edit</button>
             </article>
         </div>
     </section>

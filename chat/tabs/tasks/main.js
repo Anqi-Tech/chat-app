@@ -190,6 +190,50 @@ export default async () => ({
             return map[status] ?? "";
         }
 
+        // Task Editing Interface
+        const editingTask = ref(null);
+        const editForm = ref({
+            title: "",
+            deadline: "",
+            assignee: "",
+            status: "",
+            description: "",
+        });
+
+        function openEditForm(task) {
+            editingTask.value = task;
+            editForm.value = {
+                title: task.value.title,
+                deadline: task.value.deadline,
+                assignee: task.value.assignee,
+                status: task.value.status,
+                description: task.value.description,
+            };
+        }
+
+        function closeEditForm() {
+            editingTask.value = null;
+        }
+
+        async function saveEdit() {
+            if (!editForm.value.title.trim() || !editForm.value.deadline)
+                return;
+            const updated = {
+                ...editingTask.value.value,
+                title: editForm.value.title.trim(),
+                deadline: editForm.value.deadline,
+                assignee: editForm.value.assignee,
+                status: editForm.value.status,
+                description: editForm.value.description.trim(),
+            };
+            await graffiti.delete(editingTask.value, session.value);
+            await graffiti.post(
+                { value: updated, channels: [props.chatId] },
+                session.value,
+            );
+            closeEditForm();
+        }
+
         return {
             session,
             sortedTasks,
@@ -207,6 +251,11 @@ export default async () => ({
             filterAssignee,
             filteredTasks,
             statusClass,
+            editingTask,
+            editForm,
+            openEditForm,
+            closeEditForm,
+            saveEdit,
         };
     },
 });

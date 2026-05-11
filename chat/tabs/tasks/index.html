@@ -74,7 +74,7 @@
                         }}
                     </p>
                 </div>
-                <button>Edit</button>
+                <button @click="openEditForm(task)">Edit</button>
             </article>
         </div>
     </section>
@@ -122,3 +122,49 @@
         </button>
     </form>
 </section>
+
+<!-- Task Editing Interface -->
+<div v-if="editingTask" class="modal-overlay" @click.self="closeEditForm">
+    <div class="modal">
+        <h3>Edit Task</h3>
+        <form @submit.prevent="saveEdit">
+            <div>
+                <label>Title: </label>
+                <input type="text" v-model="editForm.title" required />
+            </div>
+            <div>
+                <label>Deadline: </label>
+                <input type="date" v-model="editForm.deadline" required />
+            </div>
+            <div>
+                <label>Assignee: </label>
+                <select v-model="editForm.assignee">
+                    <option value="" disabled>Select a member</option>
+                    <option
+                        v-for="member in memberHandles"
+                        :key="member.actor"
+                        :value="member.actor"
+                    >
+                        {{ member.handle }}
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label>Status: </label>
+                <select v-model="editForm.status">
+                    <option>Not Started</option>
+                    <option>In Progress</option>
+                    <option>Needs Review</option>
+                    <option>Blocked</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+            <div>
+                <label>Description (optional): </label>
+                <textarea v-model="editForm.description"></textarea>
+            </div>
+            <button type="submit">Save</button>
+            <button type="button" @click="closeEditForm">Cancel</button>
+        </form>
+    </div>
+</div>

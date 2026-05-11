@@ -18,6 +18,7 @@
                     :key="task.url"
                     class="board-task-card"
                     :class="statusClass(task.value.status)"
+                    @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
                     <p>Status: {{ task.value.status }}</p>
@@ -42,6 +43,7 @@
                     :key="task.url"
                     class="board-task-card"
                     :class="statusClass(task.value.status)"
+                    @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
                     <p>Status: {{ task.value.status }}</p>
@@ -68,6 +70,7 @@
                     :key="task.url"
                     class="board-task-card"
                     :class="statusClass(task.value.status)"
+                    @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
                     <p>Status: {{ task.value.status }}</p>
@@ -79,5 +82,40 @@
                 </article>
             </div>
         </section>
+    </section>
+</section>
+
+<!-- Task Modal -->
+<section v-if="isModalOpen" class="modal-overlay" @click="closeTaskModal">
+    <section class="modal" @click.stop>
+        <div class="task-modal-header">
+            <h2>{{ selectedTask.value.title }}</h2>
+            <button class="task-modal-close" @click="closeTaskModal">×</button>
+        </div>
+
+        <div>
+            <h3>Status</h3>
+            <p :class="statusClass(selectedTask.value.status)">
+                {{ selectedTask.value.status }}
+            </p>
+        </div>
+
+        <div>
+            <h3>Deadline</h3>
+            <p>{{ selectedTask.value.deadline }}</p>
+        </div>
+
+        <div>
+            <h3>Assignee</h3>
+            <p>
+                {{ taskAssigneeHandles[selectedTask.value.assignee] ||
+                selectedTask.value.assignee }}
+            </p>
+        </div>
+
+        <div>
+            <h3>Description</h3>
+            <p>{{ taskDescription(selectedTask) }}</p>
+        </div>
     </section>
 </section>

@@ -73,6 +73,7 @@ export default async () => ({
                                 assignee: { type: "string" },
                                 status: { type: "string" },
                                 published: { type: "number" },
+                                description: { type: "string" },
                             },
                         },
                     },
@@ -99,6 +100,10 @@ export default async () => ({
             },
             { immediate: true },
         );
+
+        function taskDescription(task) {
+            return task.value.description || "No additional description.";
+        }
 
         // Requires Attention: tasks with status "Needs Review" or "Blocked"
         const requiresAttention = computed(() =>
@@ -157,6 +162,20 @@ export default async () => ({
             return map[status] ?? "";
         }
 
+        // Modal state
+        const selectedTask = ref(null);
+        const isModalOpen = ref(false);
+
+        function openTaskModal(task) {
+            selectedTask.value = task;
+            isModalOpen.value = true;
+        }
+
+        function closeTaskModal() {
+            isModalOpen.value = false;
+            selectedTask.value = null;
+        }
+
         return {
             tasksLoading,
             requiresAttention,
@@ -165,6 +184,11 @@ export default async () => ({
             taskAssigneeHandles,
             memberHandles,
             statusClass,
+            selectedTask,
+            isModalOpen,
+            openTaskModal,
+            closeTaskModal,
+            taskDescription,
         };
     },
 });

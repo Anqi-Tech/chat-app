@@ -720,6 +720,16 @@ button:enabled:hover {
     margin: 0;
 }
 
+.invite-notif p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.invite-notif div {
+    min-width: fit-content;
+}
+
 .invite-notif button,
 .chat-card button {
     padding: 0.3rem 1rem;

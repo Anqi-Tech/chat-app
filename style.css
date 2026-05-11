@@ -332,7 +332,7 @@ button:enabled:hover {
 .board-modal {
     padding: 2rem;
     border-radius: 20px;
-    border: 2px solid black;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -539,6 +539,7 @@ button:enabled:hover {
     width: 80vw;
     height: 50vh;
     background-color: var(--bg-light);
+    border: 1px solid black;
 }
 
 .modal h2 {
@@ -558,7 +559,7 @@ button:enabled:hover {
 }
 
 .modal form div {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .modal input {
@@ -1016,7 +1017,8 @@ button:enabled:hover {
     .task-view-toggle button {
         font-size: 0.8rem;
     }
-    .task-tab h2 {
+    .task-tab h2,
+    .modal h2 {
         margin-bottom: 1rem;
         font-size: 1.5rem;
     }
@@ -1024,7 +1026,8 @@ button:enabled:hover {
         font-size: 1.25rem;
     }
     .task-filters label,
-    .task-tab-add label {
+    .task-tab-add label,
+    .modal form label {
         font-size: 1rem;
     }
     .task-filters-dropdowns {
@@ -1038,8 +1041,21 @@ button:enabled:hover {
     .task-tab form input,
     .task-tab form select,
     .task-tab form textarea,
-    .task-tab-add button {
+    .task-tab-add button,
+    .modal input,
+    .modal select,
+    .modal textarea {
         font-size: 0.8rem;
+    }
+    .modal {
+        width: 75vw;
+        padding: 1.5rem;
+    }
+    .modal-btns * {
+        padding: 0.25rem 0.5rem;
+    }
+    .modal form div {
+        margin-bottom: 0.5rem;
     }
 }
 

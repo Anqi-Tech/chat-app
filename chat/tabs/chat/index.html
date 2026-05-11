@@ -7,7 +7,7 @@
             <button @click="deleteChat" :disabled="isDeletingChat">
                 {{ isDeletingChat ? "Leaving..." : "Leave Chat" }}
             </button>
-            <p>{{ memberList }}</p>
+            <p class="overflow-hidden">{{ memberList }}</p>
         </div>
         <div class="divider"></div>
 

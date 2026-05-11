@@ -35,6 +35,12 @@ button:enabled:hover {
     height: 100%;
 }
 
+.overflow-hidden {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .invite-section input:focus,
 .chat-send-bar input:focus,
 .task-tab form input:focus,

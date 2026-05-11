@@ -1,3 +1,83 @@
-<div>
-    <p>Task board coming soon!</p>
-</div>
+<link rel="stylesheet" href="style.css" />
+
+<section class="board-tab">
+    <section class="board-tab-main">
+        <h1>Task Board</h1>
+
+        <!-- Requires Attention Section -->
+        <section>
+            <h2>Requires Attention:</h2>
+            <p v-if="tasksLoading">Loading tasks...</p>
+            <p v-else-if="requiresAttention.length === 0">
+                No tasks requiring attention.
+            </p>
+
+            <div v-else class="board-task-list">
+                <article
+                    v-for="task in requiresAttention"
+                    :key="task.url"
+                    class="board-task-card"
+                    :class="statusClass(task.value.status)"
+                >
+                    <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
+                    <p>Status: {{ task.value.status }}</p>
+                    <p>Due: {{ task.value.deadline }}</p>
+                    <p class="text-overflow-hidden">
+                        Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                        task.value.assignee }}
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Recent Updates Section -->
+        <section>
+            <h2>Recent Updates:</h2>
+            <p v-if="tasksLoading">Loading tasks...</p>
+            <p v-else-if="recentUpdates.length === 0">No recent updates.</p>
+
+            <div v-else class="board-task-list">
+                <article
+                    v-for="task in recentUpdates"
+                    :key="task.url"
+                    class="board-task-card"
+                    :class="statusClass(task.value.status)"
+                >
+                    <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
+                    <p>Status: {{ task.value.status }}</p>
+                    <p>Due: {{ task.value.deadline }}</p>
+                    <p class="text-overflow-hidden">
+                        Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                        task.value.assignee }}
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Upcoming Deadlines Section -->
+        <section>
+            <h2>Upcoming Deadlines:</h2>
+            <p v-if="tasksLoading">Loading tasks...</p>
+            <p v-else-if="upcomingDeadlines.length === 0">
+                No tasks with upcoming deadlines.
+            </p>
+
+            <div v-else class="board-task-list">
+                <article
+                    v-for="task in upcomingDeadlines"
+                    :key="task.url"
+                    class="board-task-card"
+                    :class="statusClass(task.value.status)"
+                >
+                    <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
+                    <p>Status: {{ task.value.status }}</p>
+                    <p>Due: {{ task.value.deadline }}</p>
+                    <p class="text-overflow-hidden">
+                        Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
+                        task.value.assignee }}
+                    </p>
+                </article>
+            </div>
+        </section>
+    </section>
+</section>

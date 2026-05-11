@@ -14,25 +14,26 @@
         <div class="divider"></div>
 
         <section class="invite-section">
-            <section class="invite-section">
-                <transition name="slide-fade" mode="out-in">
-                    <button
-                        v-if="!showInviteForm"
-                        key="invite-button"
-                        @click="showInviteForm = true; inviteSuccess = false"
-                    >
-                        Invite Someone
-                    </button>
+            <transition name="slide-fade" mode="out-in">
+                <button
+                    v-if="!showInviteForm"
+                    key="invite-button"
+                    @click="showInviteForm = true; inviteSuccess = false"
+                >
+                    Invite Someone
+                </button>
 
-                    <form v-else key="invite-form" @submit.prevent="sendInvite">
-                        <label>Person to invite: </label>
-
+                <form v-else key="invite-form" @submit.prevent="sendInvite">
+                    <div>
+                        <label>Person to invite:&nbsp;</label>
                         <input
                             type="text"
                             v-model="inviteeActor"
                             placeholder="handle.graffiti.actor"
                         />
+                    </div>
 
+                    <div>
                         <button
                             type="submit"
                             :disabled="!inviteeActor.trim() || isInviting"
@@ -43,12 +44,12 @@
                         <button type="button" @click="cancelInvite">
                             Cancel
                         </button>
+                    </div>
 
-                        <p v-if="inviteError">{{ inviteError }}</p>
-                        <p v-if="inviteSuccess">Invitation sent!</p>
-                    </form>
-                </transition>
-            </section>
+                    <p v-if="inviteError">{{ inviteError }}</p>
+                    <p v-if="inviteSuccess">Invitation sent!</p>
+                </form>
+            </transition>
         </section>
         <div class="divider"></div>
 

@@ -87,34 +87,38 @@
 
 <!-- Task Modal -->
 <section v-if="isModalOpen" class="modal-overlay" @click="closeTaskModal">
-    <section class="modal" @click.stop>
+    <section
+        class="board-modal"
+        :class="statusClass(selectedTask.value.status)"
+        @click.stop
+    >
         <div class="task-modal-header">
             <h2>{{ selectedTask.value.title }}</h2>
-            <button class="task-modal-close" @click="closeTaskModal">×</button>
+            <button class="task-modal-close" @click="closeTaskModal">
+                Close
+            </button>
         </div>
 
         <div>
-            <h3>Status</h3>
-            <p :class="statusClass(selectedTask.value.status)">
-                {{ selectedTask.value.status }}
-            </p>
+            <h3>Status:&nbsp;</h3>
+            <p>{{ selectedTask.value.status }}</p>
         </div>
 
         <div>
-            <h3>Deadline</h3>
+            <h3>Deadline:&nbsp;</h3>
             <p>{{ selectedTask.value.deadline }}</p>
         </div>
 
         <div>
-            <h3>Assignee</h3>
+            <h3>Assignee:&nbsp;</h3>
             <p>
                 {{ taskAssigneeHandles[selectedTask.value.assignee] ||
                 selectedTask.value.assignee }}
             </p>
         </div>
 
-        <div>
-            <h3>Description</h3>
+        <div class="board-modal-desc">
+            <h3>Description:</h3>
             <p>{{ taskDescription(selectedTask) }}</p>
         </div>
     </section>

@@ -317,6 +317,49 @@ button:enabled:hover {
     margin: 0;
 }
 
+/* Board Modal */
+.board-modal {
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 80vw;
+    height: 50vh;
+    background-color: var(--bg-light);
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.board-modal * {
+    margin: 0;
+}
+
+.board-modal div {
+    display: flex;
+}
+
+.board-modal h3,
+.board-modal p {
+    font-size: 1.25rem;
+}
+
+.task-modal-header {
+    justify-content: space-between;
+    font-size: 1.5rem;
+}
+
+.task-modal-header button {
+    padding: 0 2rem;
+}
+
+.board-modal-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 /* -- TASK TAB ---------------------------------------------------------- */
 .task-tab h2 {
     margin: 0;
@@ -462,7 +505,6 @@ button:enabled:hover {
 }
 
 .modal {
-    background-color: white;
     padding: 2rem;
     border-radius: 10px;
     display: flex;

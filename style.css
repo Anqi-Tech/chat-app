@@ -1023,7 +1023,8 @@ button:enabled:hover {
     .task-filters h3 {
         font-size: 1.25rem;
     }
-    .task-filters label {
+    .task-filters label,
+    .task-tab-add label {
         font-size: 1rem;
     }
     .task-filters-dropdowns {
@@ -1032,6 +1033,12 @@ button:enabled:hover {
     }
     .task-filters select {
         padding: 0.1rem 0.25rem;
+        font-size: 0.8rem;
+    }
+    .task-tab form input,
+    .task-tab form select,
+    .task-tab form textarea,
+    .task-tab-add button {
         font-size: 0.8rem;
     }
 }

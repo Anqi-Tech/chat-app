@@ -641,6 +641,7 @@ button:enabled:hover {
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 2rem;
+    animation: slideUp 200ms ease-out;
 }
 
 .message-user,
@@ -652,11 +653,21 @@ button:enabled:hover {
     font-weight: bold;
 }
 
+.message > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
+}
+
 .message-content {
     background-color: var(--coral);
     border-radius: 0 15px 15px 15px;
     padding: 0.5rem 1rem;
     border: 1px solid black;
+    word-wrap: break-word;
+    box-decoration-break: clone;
+    display: block;
 }
 
 .message button {
@@ -674,10 +685,6 @@ button:enabled:hover {
     visibility: visible;
     opacity: 1;
     transform: translateX(0);
-}
-
-.message {
-    animation: slideUp 200ms ease-out;
 }
 
 @keyframes slideUp {

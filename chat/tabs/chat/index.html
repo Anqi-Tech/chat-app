@@ -3,7 +3,7 @@
 <section class="chat-tab">
     <section class="chat-tab-main">
         <div class="chat-tab-head">
-            <h1>{{chatTitle}}</h1>
+            <h1 class="text-overflow-hidden">{{chatTitle}}</h1>
             <button @click="deleteChat" :disabled="isDeletingChat">
                 {{ isDeletingChat ? "Leaving..." : "Leave Chat" }}
             </button>

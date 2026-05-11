@@ -94,9 +94,7 @@
     >
         <div class="task-modal-header">
             <h2>{{ selectedTask.value.title }}</h2>
-            <button class="task-modal-close" @click="closeTaskModal">
-                Close
-            </button>
+            <button @click="closeTaskModal">Close</button>
         </div>
 
         <div>
@@ -121,5 +119,9 @@
             <h3>Description:</h3>
             <p>{{ taskDescription(selectedTask) }}</p>
         </div>
+
+        <button class="board-modal-close-mobile" @click="closeTaskModal">
+            Close
+        </button>
     </section>
 </section>

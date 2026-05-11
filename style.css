@@ -337,7 +337,8 @@ button:enabled:hover {
     flex-direction: column;
     gap: 1.5rem;
     width: 80vw;
-    height: 50vh;
+    height: fit-content;
+    max-height: 25rem;
     background-color: var(--bg-light);
     overflow: hidden;
     overflow-y: auto;
@@ -349,6 +350,7 @@ button:enabled:hover {
 
 .board-modal div {
     display: flex;
+    align-items: flex-start;
 }
 
 .board-modal h3,
@@ -359,16 +361,21 @@ button:enabled:hover {
 .task-modal-header {
     justify-content: space-between;
     font-size: 1.5rem;
+    gap: 1rem;
 }
 
 .task-modal-header button {
-    padding: 0 2rem;
+    padding: 0.5rem 2rem;
 }
 
 .board-modal-desc {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.board-modal-close-mobile {
+    display: none;
 }
 
 /* -- TASK TAB ---------------------------------------------------------- */
@@ -786,6 +793,16 @@ button:enabled:hover {
         white-space: normal;
         text-align: center;
     }
+    .board-modal {
+        max-height: 20rem;
+    }
+    .task-modal-header {
+        font-size: 1.25rem;
+    }
+    .board-modal h3,
+    .board-modal p {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -903,6 +920,19 @@ button:enabled:hover {
     .board-task-card h4,
     .board-task-card p {
         font-size: 0.8rem;
+    }
+    .board-modal {
+        padding: 1.5rem;
+        width: 75vw;
+        max-height: 60vh;
+    }
+    .task-modal-header button {
+        display: none;
+    }
+    .board-modal-close-mobile {
+        display: block;
+        margin-top: auto;
+        padding: 0.5rem;
     }
 }
 

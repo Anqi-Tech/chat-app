@@ -2,13 +2,15 @@
 
 <section class="chat-tab">
     <section class="chat-tab-main">
-        <div class="chat-tab-head">
-            <h1 class="text-overflow-hidden">{{chatTitle}}</h1>
-            <button @click="deleteChat" :disabled="isDeletingChat">
-                {{ isDeletingChat ? "Leaving..." : "Leave Chat" }}
-            </button>
-            <p class="text-overflow-hidden">{{ memberList }}</p>
-        </div>
+        <header>
+            <div class="chat-tab-head">
+                <h1 class="text-overflow-hidden">{{chatTitle}}</h1>
+                <button @click="deleteChat" :disabled="isDeletingChat">
+                    {{ isDeletingChat ? "Leaving..." : "Leave Chat" }}
+                </button>
+            </div>
+            <p class="chat-members text-overflow-hidden">{{ memberList }}</p>
+        </header>
         <div class="divider"></div>
 
         <section class="invite-section">

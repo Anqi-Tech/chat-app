@@ -78,7 +78,7 @@ export default async () => ({
                     },
                 },
                 undefined,
-                true,
+                false,
             );
 
         const sortedTasks = computed(() =>

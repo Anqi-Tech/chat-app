@@ -136,10 +136,12 @@
                 <label>Title: </label>
                 <input type="text" v-model="editForm.title" required />
             </div>
+
             <div>
                 <label>Deadline: </label>
                 <input type="date" v-model="editForm.deadline" required />
             </div>
+
             <div>
                 <label>Assignee: </label>
                 <select v-model="editForm.assignee">
@@ -153,6 +155,7 @@
                     </option>
                 </select>
             </div>
+
             <div>
                 <label>Status: </label>
                 <select v-model="editForm.status">
@@ -163,16 +166,24 @@
                     <option>Completed</option>
                 </select>
             </div>
-            <div>
+
+            <div class="task-desc-field-edit">
                 <label>Description (optional): </label>
                 <textarea v-model="editForm.description"></textarea>
             </div>
-            <button type="submit" :disabled="isSaving">
-                {{ isSaving ? "Saving..." : "Save" }}
-            </button>
-            <button type="button" @click="closeEditForm" :disabled="isSaving">
-                Cancel
-            </button>
+
+            <div class="modal-btns">
+                <button type="submit" :disabled="isSaving">
+                    {{ isSaving ? "Saving..." : "Save" }}
+                </button>
+                <button
+                    type="button"
+                    @click="closeEditForm"
+                    :disabled="isSaving"
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
     </section>
 </section>

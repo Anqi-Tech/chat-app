@@ -50,7 +50,10 @@ button:enabled:hover {
 .chat-send-bar input:focus,
 .task-tab form input:focus,
 .task-tab form select:focus,
-.task-tab form textarea:focus {
+.task-tab form textarea:focus,
+.modal input:focus,
+.modal select:focus,
+.modal textarea:focus {
     outline: none;
     background-color: var(--input-light-focus);
 }
@@ -412,8 +415,73 @@ button:enabled:hover {
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    height: 50vh;
+    background-color: var(--bg-light);
+}
+
+.modal h2 {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.modal form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal form label {
+    font-size: 1.25rem;
+}
+
+.modal form div {
+    margin-bottom: 0.5rem;
+}
+
+.modal input {
+    background-color: var(--input-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.modal select {
+    background-color: var(--input-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.modal textarea {
+    background-color: var(--input-light);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid black;
+    resize: none;
+    flex: 1;
+}
+
+.task-desc-field-edit {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.25rem;
+}
+
+.modal-btns {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.modal-btns * {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: 5rem;
 }
 
 /* Add Task Sidebar */

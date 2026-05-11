@@ -21,12 +21,12 @@
                     @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
-                    <p>Status: {{ task.value.status }}</p>
                     <p>Due: {{ task.value.deadline }}</p>
                     <p class="text-overflow-hidden">
                         Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
                         task.value.assignee }}
                     </p>
+                    <p>Status: {{ task.value.status }}</p>
                 </article>
             </div>
         </section>
@@ -46,12 +46,12 @@
                     @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
-                    <p>Status: {{ task.value.status }}</p>
                     <p>Due: {{ task.value.deadline }}</p>
                     <p class="text-overflow-hidden">
                         Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
                         task.value.assignee }}
                     </p>
+                    <p>Status: {{ task.value.status }}</p>
                 </article>
             </div>
         </section>
@@ -73,12 +73,12 @@
                     @click="openTaskModal(task)"
                 >
                     <h4 class="text-overflow-hidden">{{ task.value.title }}</h4>
-                    <p>Status: {{ task.value.status }}</p>
                     <p>Due: {{ task.value.deadline }}</p>
                     <p class="text-overflow-hidden">
                         Assignee: {{ taskAssigneeHandles[task.value.assignee] ||
                         task.value.assignee }}
                     </p>
+                    <p>Status: {{ task.value.status }}</p>
                 </article>
             </div>
         </section>
@@ -98,12 +98,7 @@
         </div>
 
         <div>
-            <h3>Status:&nbsp;</h3>
-            <p>{{ selectedTask.value.status }}</p>
-        </div>
-
-        <div>
-            <h3>Deadline:&nbsp;</h3>
+            <h3>Due:&nbsp;</h3>
             <p>{{ selectedTask.value.deadline }}</p>
         </div>
 
@@ -113,6 +108,11 @@
                 {{ taskAssigneeHandles[selectedTask.value.assignee] ||
                 selectedTask.value.assignee }}
             </p>
+        </div>
+
+        <div>
+            <h3>Status:&nbsp;</h3>
+            <p>{{ selectedTask.value.status }}</p>
         </div>
 
         <div class="board-modal-desc">

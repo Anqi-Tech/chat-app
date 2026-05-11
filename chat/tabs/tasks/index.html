@@ -132,8 +132,8 @@
     <section class="modal">
         <h2>Edit Task</h2>
         <form @submit.prevent="saveEdit">
-            <div>
-                <label>Title: </label>
+            <div class="modal-title">
+                <label>Title:&nbsp;</label>
                 <input type="text" v-model="editForm.title" required />
             </div>
 

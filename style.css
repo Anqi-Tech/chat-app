@@ -450,22 +450,27 @@ button:enabled:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    box-sizing: border-box;
 }
 
 .task-card-col {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.5rem;
+    min-width: 0;
 }
 
 .task-card * {
     margin: 0;
 }
 
-.task-card p {
+.task-card-col h4,
+.task-card-col p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .task-card select {
@@ -557,6 +562,14 @@ button:enabled:hover {
     padding: 0.25rem 0.5rem;
     border-radius: 20px;
     border: 1px solid black;
+}
+
+.modal-title {
+    display: flex;
+}
+
+.modal-title input {
+    flex: 1;
 }
 
 .modal select {
@@ -802,6 +815,9 @@ button:enabled:hover {
     .board-modal h3,
     .board-modal p {
         font-size: 1rem;
+    }
+    .task-tab h2 {
+        font-size: 2rem;
     }
 }
 

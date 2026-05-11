@@ -308,7 +308,6 @@ button:enabled:hover {
 
 .board-task-list {
     display: flex;
-    flex-shrink: 0;
     overflow: hidden;
     overflow-x: auto;
     gap: 1.5rem;
@@ -881,6 +880,30 @@ button:enabled:hover {
         padding: 0.25rem 0.75rem;
         align-self: flex-start;
     }
+
+    /* Board Tab */
+    .board-tab-main {
+        padding-top: 0;
+        gap: 1.5rem;
+    }
+    .board-tab-main h1 {
+        font-size: 1.5rem;
+        width: 15rem;
+        padding: 0.5rem;
+    }
+    .board-tab-main h2 {
+        font-size: 1.25rem;
+    }
+    .board-task-card {
+        padding: 0.75rem;
+        gap: 0.25rem;
+        width: 15rem;
+        min-width: 15rem;
+    }
+    .board-task-card h4,
+    .board-task-card p {
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 425px) {
@@ -935,5 +958,20 @@ button:enabled:hover {
     .board-tab-main,
     .task-tab-sub {
         padding: 1rem;
+    }
+
+    /* Board Tab */
+    .board-tab-main {
+        padding-top: 0;
+    }
+    .board-task-list {
+        flex-direction: column;
+        overflow: visible;
+        gap: 0.75rem;
+    }
+    .board-task-card {
+        min-width: unset;
+        width: 100%;
+        box-sizing: border-box;
     }
 }

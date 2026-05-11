@@ -215,23 +215,29 @@ export default async () => ({
             editingTask.value = null;
         }
 
+        const isSaving = ref(false);
         async function saveEdit() {
             if (!editForm.value.title.trim() || !editForm.value.deadline)
                 return;
-            const updated = {
-                ...editingTask.value.value,
-                title: editForm.value.title.trim(),
-                deadline: editForm.value.deadline,
-                assignee: editForm.value.assignee,
-                status: editForm.value.status,
-                description: editForm.value.description.trim(),
-            };
-            await graffiti.delete(editingTask.value, session.value);
-            await graffiti.post(
-                { value: updated, channels: [props.chatId] },
-                session.value,
-            );
-            closeEditForm();
+            isSaving.value = true;
+            try {
+                const updated = {
+                    ...editingTask.value.value,
+                    title: editForm.value.title.trim(),
+                    deadline: editForm.value.deadline,
+                    assignee: editForm.value.assignee,
+                    status: editForm.value.status,
+                    description: editForm.value.description.trim(),
+                };
+                await graffiti.delete(editingTask.value, session.value);
+                await graffiti.post(
+                    { value: updated, channels: [props.chatId] },
+                    session.value,
+                );
+                closeEditForm();
+            } finally {
+                isSaving.value = false;
+            }
         }
 
         return {
@@ -256,6 +262,7 @@ export default async () => ({
             openEditForm,
             closeEditForm,
             saveEdit,
+            isSaving,
         };
     },
 });

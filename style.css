@@ -6,6 +6,7 @@
     --input-light-focus: #ffacd6;
     --input-dark: #ff7dbe;
     --input-dark-focus: #ff50a8;
+    --cyan: #73e8ff;
     --gray: #c1c1c1;
     --yellow: #ffe693;
     --green: #9fe8b0;
@@ -536,7 +537,7 @@ button:enabled:hover {
     gap: 0.5rem;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--blue);
+    background-color: var(--cyan);
     padding: 0.75rem 1rem;
     border-radius: 15px;
     border: 1px solid black;

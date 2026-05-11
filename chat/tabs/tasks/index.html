@@ -124,9 +124,13 @@
 </section>
 
 <!-- Task Editing Interface -->
-<div v-if="editingTask" class="modal-overlay" @click.self="closeEditForm">
-    <div class="modal">
-        <h3>Edit Task</h3>
+<section
+    v-if="editingTask"
+    class="modal-overlay"
+    @click.self="!isSaving && closeEditForm()"
+>
+    <section class="modal">
+        <h2>Edit Task</h2>
         <form @submit.prevent="saveEdit">
             <div>
                 <label>Title: </label>
@@ -163,8 +167,12 @@
                 <label>Description (optional): </label>
                 <textarea v-model="editForm.description"></textarea>
             </div>
-            <button type="submit">Save</button>
-            <button type="button" @click="closeEditForm">Cancel</button>
+            <button type="submit" :disabled="isSaving">
+                {{ isSaving ? "Saving..." : "Save" }}
+            </button>
+            <button type="button" @click="closeEditForm" :disabled="isSaving">
+                Cancel
+            </button>
         </form>
-    </div>
-</div>
+    </section>
+</section>

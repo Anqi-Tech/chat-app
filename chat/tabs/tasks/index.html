@@ -131,7 +131,7 @@
             <label>Description (optional): </label>
             <textarea
                 v-model="newTask.description"
-                placeholder="What needs to be done?"
+                placeholder="Optional additional details about the task"
             ></textarea>
         </div>
         <button
@@ -189,7 +189,10 @@
 
             <div class="task-desc-field-edit">
                 <label>Description (optional): </label>
-                <textarea v-model="editForm.description"></textarea>
+                <textarea
+                    v-model="editForm.description"
+                    placeholder="Optional additional details about the task"
+                ></textarea>
             </div>
 
             <div class="modal-btns">

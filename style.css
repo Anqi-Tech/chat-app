@@ -379,6 +379,10 @@ button:enabled:hover {
 }
 
 /* -- TASK TAB ---------------------------------------------------------- */
+.task-view-toggle {
+    display: none;
+}
+
 .task-tab h2 {
     margin: 0;
     margin-bottom: 2rem;
@@ -816,8 +820,32 @@ button:enabled:hover {
     .board-modal p {
         font-size: 1rem;
     }
+
+    /* Task Tab */
+    .task-tab {
+        flex-direction: column;
+    }
     .task-tab h2 {
         font-size: 2rem;
+    }
+    .task-view-toggle {
+        display: flex;
+        background-color: var(--input-light);
+        border-radius: 20px;
+        border: 1px solid black;
+    }
+    .task-view-toggle button {
+        font-size: 1.25rem;
+        flex: 1;
+        padding: 0.5rem 0;
+    }
+    .task-view-toggle button:disabled {
+        background-color: var(--input-dark);
+        color: black;
+    }
+    .task-view-toggle button:not(:disabled) {
+        border: none;
+        background-color: var(--input-light);
     }
 }
 

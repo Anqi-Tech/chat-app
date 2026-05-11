@@ -1,7 +1,19 @@
 <link rel="stylesheet" href="style.css" />
 
 <section class="task-tab">
-    <section class="task-tab-sub task-tab-tasks">
+    <div class="task-view-toggle">
+        <button @click="taskView = 'list'" :disabled="taskView === 'list'">
+            All Tasks
+        </button>
+        <button @click="taskView = 'add'" :disabled="taskView === 'add'">
+            Add Task
+        </button>
+    </div>
+
+    <section
+        class="task-tab-sub task-tab-tasks"
+        v-show="isWideScreen || taskView === 'list'"
+    >
         <h2>All Tasks</h2>
 
         <div class="task-filters">
@@ -79,7 +91,11 @@
         </div>
     </section>
 
-    <form @submit.prevent="createTask" class="task-tab-sub task-tab-add">
+    <form
+        @submit.prevent="createTask"
+        class="task-tab-sub task-tab-add"
+        v-show="isWideScreen || taskView === 'add'"
+    >
         <h2>Add Task</h2>
         <div>
             <label>Title: </label>

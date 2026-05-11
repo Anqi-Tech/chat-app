@@ -1,4 +1,4 @@
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onUnmounted } from "vue";
 import {
     useGraffiti,
     useGraffitiSession,
@@ -240,6 +240,16 @@ export default async () => ({
             }
         }
 
+        // Toggle For Smaller Screen Sizes
+        const isWideScreen = ref(window.innerWidth > 1024);
+        const handleResize = () => {
+            isWideScreen.value = window.innerWidth > 1024;
+        };
+        window.addEventListener("resize", handleResize);
+        onUnmounted(() => window.removeEventListener("resize", handleResize));
+
+        const taskView = ref("list"); // "list" or "add"
+
         return {
             session,
             sortedTasks,
@@ -263,6 +273,8 @@ export default async () => ({
             closeEditForm,
             saveEdit,
             isSaving,
+            isWideScreen,
+            taskView,
         };
     },
 });
